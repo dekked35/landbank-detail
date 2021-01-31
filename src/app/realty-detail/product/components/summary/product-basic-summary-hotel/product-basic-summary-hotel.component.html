@@ -1,0 +1,115 @@
+<div class="ui-g text_cover">
+   <h3> {{ conclustionText }} </h3>
+   <div class="ui-g-12 ui-md-12 ui-lg-12 form_expense">
+      <div class="ui-g-12 ui-md-12 ui-lg-12"></div>
+      <div class="ui-g-12 ui-md-8 ui-lg-6 box_layout">
+         <label>พื้นที่ที่ใช้ได้ตามกฏหมาย</label>
+      </div>
+      <div class="ui-g-12 ui-md-4 ui-lg-6 box_layout" style="text-align: right;">
+         <div>
+            <span [ngStyle]="competitorColor">
+               {{ products.availableArea | number:'1.2-2' }} </span>
+            ตร.ม.
+         </div>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout">
+         <label>พื้นที่ที่ใช้ไป</label>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout" style="text-align: right;">
+         <div>
+            <span  [ngStyle]="competitorColor">
+               {{ products.usedArea | number:'1.2-2' }} </span>
+            ตร.ม.
+         </div>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout">
+         <label>พื้นที่รวมห้องพัก</label>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout" style="text-align: right;">
+         <div>
+            <span  [ngStyle]="competitorColor">
+               {{ products.totalRoomArea | number:'1.2-2' }} </span>
+            ตร.ม.
+         </div>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout">
+          <label>พื้นที่รวมส่วนกลาง</label>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout" style="text-align: right;">
+          <div>
+            <span  [ngStyle]="competitorColor">
+                {{ products.totalCentralArea | number:'1.2-2' }} </span>
+            ตร.ม.
+          </div>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout">
+         <label>พื้นที่รวมทางเดิน</label>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout" style="text-align: right;">
+         <div>
+            <span  [ngStyle]="competitorColor">
+               {{ products.totalCorridor | number:'1.2-2' }} </span>
+            ตร.ม.
+         </div>
+      </div>
+
+      <ng-container *ngIf="areaData.standardArea.area.parking !== 0">
+         <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout" *ngIf="this.currentProperty !== 'condo'" >
+            <label>พื้นที่ในอาคาร</label>
+         </div>
+         <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout" *ngIf="this.currentProperty === 'condo'" >
+         <label>พื้นที่จอดรถ{{this.wording ? this.wording : 'ภายในกรุงเทพ'}}</label>
+         </div>
+         <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout" style="text-align: right;">
+            <div>
+               <span  [ngStyle]="competitorColor">
+                  {{ products.totalParkingArea | number:'1.2-2' }} </span>
+               ตร.ม.
+            </div>
+         </div>
+      </ng-container>
+
+      <div class="ui-g-12 ui-md-6 ui-lg-6 box_layout">
+         <label>พื้นที่ภายนอกอาคาร (ไม่ได้คำนวณ)</label>
+      </div>
+      <div class="ui-g-12 ui-md-6 ui-lg-6 box_layout" style="text-align: right;">
+         <div>
+            <span  [ngStyle]="competitorColor">
+               {{ products.totalOutdoorArea | number:'1.2-2' }} </span>
+            ตร.ม.
+         </div>
+      </div>
+      <div class="ui-g-12 ui-md-12 ui-lg-12">
+         <div class="form-group">
+            <div class="expense_price"> </div>
+         </div>
+      </div>
+      <div class="ui-g-7 ui-md-6 ui-lg-6 box_layout">
+         <label>จำนวนห้องพักทั้งหมด </label>
+      </div>
+      <div class="ui-g-5 ui-md-6 ui-lg-6 box_layout" style="text-align: right;">
+         <div>
+            <span  [ngStyle]="competitorColor">
+               {{ products.totalRoomQuantity | number }} </span>
+            ห้อง
+         </div>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout">
+         <label>พื้นที่ว่างคงเหลือ </label>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout" style="text-align: right;">
+         <div>
+            <span  [ngStyle]="competitorColor">
+               {{ products.remainingArea | number:'1.2-2' }} </span>
+            ตร.ม.
+         </div>
+      </div>
+      <div class="ui-g-12 ui-md-12 ui-lg-12">
+         <div class="ui-g-12 ui-md-8 ui-lg-8 " style="align-self: center; text-align:center; overflow: auto;">
+            <div class="chart_expense" style="position: relative;">
+               <app-charts [chartType]="'product'" [chartData]="products" [owner]="owner"> </app-charts>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

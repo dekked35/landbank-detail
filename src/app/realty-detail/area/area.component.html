@@ -1,0 +1,257 @@
+<div class="ui-g">
+  <div class="ui-g-12 ui-md-12 ui-lg-12 bg_myasset_detail">
+    <figure><img src="../../../assets/icons/icon_place.svg" /></figure>
+    <figcaption>
+      <h1>ข้อมูลพื้นที่</h1>
+    </figcaption>
+  </div>
+  <div class="ui-g-12 ui-md-12 ui-lg-12 area-input">
+    <div class="ui-g">
+      <div class="ui-g-6 ui-md-6 ui-lg-3">
+        <div class="icon">
+          <img src="../../../assets/icons/icon_place.svg" />
+        </div>
+        <span>สีผังเมือง</span>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-3">
+        <p-dropdown [options]="colorsTown" [(ngModel)]="townPlanColor" size="8">
+          <ng-template let-item pTemplate="selectedItem">
+            <div
+              class="box_color"
+              [ngStyle]="{ 'background-color': item.color }"
+            ></div>
+          </ng-template>
+          <ng-template let-town pTemplate="item">
+            <div class="ui-helper-clearfix">
+              <div
+                class="box_color"
+                [ngStyle]="{ 'background-color': town.color }"
+              ></div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-3">
+        <div class="icon">
+          <img src="../../../assets/icons/icon_far.svg" />
+        </div>
+        <span>ค่า ORS</span>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-3">
+        <input
+          size="16"
+          pKeyFilter="int"
+          type="text"
+          pInputText
+          matInputCommified
+        />
+        <p-button
+          icon="pi pi-info-circle"
+          (click)="overlayPanelOSR.toggle($event)"
+        ></p-button>
+        <p-overlayPanel #overlayPanelOSR [style]="tableSize">
+          ค่า OSR (Open Space Ratio) หมายถึง
+          อัตราส่วนของที่ว่างต่อพื้นที่อาคารรวม กล่าวคือ หากมีที่ดินอยู่ 200
+          ตารางวา คูณด้วย 4 ได้ 800 ตารางเมตร
+          ตัวอาคารที่จะสร้างและชายคาปกคลุมพื้นดินมีขนาดเท่าใด
+          ถือว่าเป็นพื้นที่ปกคลุม
+        </p-overlayPanel>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-3">
+        <div class="icon">
+          <img src="../../../assets/icons/icon_fence.svg" />
+        </div>
+        <span>ความยาวรั้วโดยประมาณ</span>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-3">
+        <input
+          size="16"
+          pKeyFilter="int"
+          type="text"
+          pInputText
+          matInputCommified
+        />
+        หลัง
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-3">
+        <div class="icon">
+          <img src="../../../assets/icons/icon_allarea.svg" />
+        </div>
+        <span>พื้นที่รวม</span>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-3">
+        <input
+          size="16"
+          pKeyFilter="int"
+          type="text"
+          pInputText
+          matInputCommified
+        />
+        ตร.ว.
+        <button
+          pButton
+          type="button"
+          color="ui-button-danger"
+          icon="pi pi-info-circle"
+          (click)="overlayPanelArea.toggle($event)"
+        ></button>
+        <p-overlayPanel #overlayPanelArea>
+          เป็นค่าเริ่มต้นที่ทางผู้พัฒนากำหนดให้
+        </p-overlayPanel>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-3">
+        <div class="icon">
+          <img src="../../../assets/icons/icon_far.svg" />
+        </div>
+        <span> ค่า FAR </span>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-3">
+        <input
+          size="16"
+          pKeyFilter="int"
+          type="text"
+          pInputText
+          matInputCommified
+        />
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-3">
+        <div class="icon">
+          <img src="../../../assets/icons/icon_law.svg" />
+        </div>
+        <span>พื้นที่ที่ใช้ได้ตามกฏหมาย</span>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-3">
+        <input
+          size="16"
+          pKeyFilter="int"
+          type="text"
+          pInputText
+          matInputCommified
+        />
+        ตร.ว.
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-3">
+        <div class="icon">
+          <img src="../../../assets/icons/icon_expense.svg" />
+        </div>
+        <span>ราคาที่ดิน</span>
+      </div>
+      <div class="ui-g-6 ui-md-6 ui-lg-3">
+        <input
+          size="16"
+          pKeyFilter="int"
+          type="text"
+          pInputText
+          matInputCommified
+        />
+        บาท
+      </div>
+      <div class="ui-g-12 ui-md-12 ui-lg-6"></div>
+    </div>
+    <div class="ui-g">
+      <div class="ui-g-12 ui-md-6 ui-lg-6">
+        <div class="ui-g-12 ui-md-12 ui-lg-12 land-price padding-0">
+          <span>ค่าที่ดินทั้งหมด</span>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12 padding-0">
+          <span>1 Jun - 30 Jul 2020</span>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-md-6 ui-lg-6">
+        <div class="ui-g-12 ui-md-12 ui-lg-12 land-price float-right padding-0">
+          <span>2,500,000,000.00</span>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12 float-right">
+          <span>บาท</span>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-md-12 ui-lg-12 padding-0">
+        <p>*หมายเหตุ</p>
+        <p>
+          -
+          ราคาขายที่ดินไม่ควรตั้งตำกว่าราคานี้และโดยปกติแล้วค่านี้ไม่ควรต่ำกว่า
+          10,000 บาท
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-md-12 ui-lg-12 bg_myasset_detail">
+    <figure><img src="../../../assets/icons/icon_proportion.svg" /></figure>
+    <figcaption>
+      <h1>สัดส่วนพื้นที่โดยมาตราฐาน</h1>
+    </figcaption>
+  </div>
+  <div class="ui-g-12 ui-md-12 ui-lg-12 area-input">
+    <div class="ui-g">
+      <div class="ui-g-12 ui-md-4 ui-lg-4">GRAPH</div>
+      <div class="ui-g-12 ui-md-4 ui-lg-4">
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          <div class="box">
+            <div class="icon-box">
+              <img src="../../../assets/icons/icon_fence.svg">
+            </div>
+            <span>ความยาวรั้วโดยประมาณ</span>
+            <p class="value">489.45</p>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          <div class="box">
+            <div class="icon-box">
+              <img src="../../../assets/icons/icon_far.svg" />
+            </div>
+            <span>ค่า ORS</span>
+            <p class="value">10</p>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          <div class="box">
+            <div class="icon-box">
+              <img src="../../../assets/icons/icon_law.svg" />
+            </div>
+            <span>พื้นที่ใช้ได้ตามกฏหมาย</span>
+            <p class="value">15,000</p>
+            <p class="unit">ตร.ว.</p>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          <div class="box">
+            <span>ค่าที่ดินทั้งหมด</span>
+            <p class="value">15,000</p>
+            <p class="unit">ตร.ว.</p>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-md-4 ui-lg-4">
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          <div class="box">
+            <div class="icon-box">
+              <img src="../../../assets/icons/icon_far.svg" />
+            </div>
+            <span>ค่า FAR</span>
+            <p class="value">10</p>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          <div class="box">
+            <div class="icon-box">
+              <img src="../../../assets/icons/icon_allarea.svg" />
+            </div>
+            <span>พื้นที่รวม</span>
+            <p class="value">10</p>
+          </div>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          <div class="box">
+            <div class="icon-box">
+              <img src="../../../assets/icons/icon_expense.svg" />
+            </div>
+            <span>ราคาที่ดิน</span>
+            <p class="value">10</p>
+            <p class="unit">บาท/ตร.ว.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div></div>
+</div>

@@ -1,0 +1,79 @@
+.icon > img {
+  width: 25px;
+  position: relative;
+  top: 5%;
+  left: 7%;
+}
+
+.icon {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 3px solid #1f749f;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.box {
+  border: 3px solid #43a6b8;
+  padding: 10px;
+  border-radius: 25px;
+  height: 140px;
+}
+
+.icon-box {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  vertical-align: middle;
+}
+
+.icon-box > img {
+  width: 25px;
+  position: relative;
+  top: 5%;
+  left: 7%;
+}
+
+.box > span {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+input {
+  text-align: center;
+  color: #007ad9;
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+.area-input {
+  margin-left: 60px;
+}
+
+.float-right > span {
+  float: right;
+}
+
+.padding-0 {
+  padding: 0;
+}
+
+.land-price {
+  font-size: 40px;
+  font-weight: 500;
+}
+
+.box > .value {
+  margin: 0;
+  font-size: 35px;
+  font-weight: 600;
+  text-align: end;
+  color: #1f749f;
+}
+
+.box > .unit {
+  margin: 0;
+  text-align: end;
+}

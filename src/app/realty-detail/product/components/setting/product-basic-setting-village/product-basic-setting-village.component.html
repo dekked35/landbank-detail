@@ -1,0 +1,264 @@
+<div *ngIf="products && products.length > 0" class="text_cover">
+    <ng-container *ngIf="!is_loading">
+        <p-dialog styleClass="mydialog" header="การแจ้งเตือน" [(visible)]="displayErrDialog">
+            <span class="font-red-color"> {{ displayErrDialogMsg }}</span>
+        </p-dialog>
+    </ng-container>
+
+
+    <h3 [ngStyle]="competitorColor"> {{ settingHeader }} <span> {{ settingSubHeader }}</span></h3>
+
+    <div class="ui-g">
+        <div class="ui-g-12 ui-md-12 ui-lg-12" style="display:inline-block;">
+            <div class="ui-g-12 ui-md-4 ui-lg-5 box_layout"  style="float: center;">
+                พื้นที่ที่ใช้ได้ทั้งหมด
+                <input [(ngModel)]="setArea" size="7" type="text"
+                    *ngIf="owner !== 'user'"
+                    pInputText inputWithComma style="width: 80px" (change)="handleRatioEnd(0)"  />
+                <span *ngIf="owner === 'user'" >{{ productData[owner].usedArea | number: '1.0-2' }}</span> ตร.ว.
+            </div>
+            <div class="ui-g-12 ui-md-4 ui-lg-4 box_layout" style="float: center;" *ngIf="this.owner === 'user'" >
+                พื้นที่คงเหลือ <span>{{ productData[owner].remainingArea| number: '1.0-2' }}</span> ตร.ว.
+            </div>
+            <div class="ui-g-12 ui-md-4 ui-lg-4 box_layout" style="margin-top: 7px" *ngIf="this.owner !== 'user'" >
+              พื้นที่คงเหลือ <span [ngStyle]="competitorColor">{{ productData[owner].remainingArea| number: '1.0-2' }}</span> ตร.ว.
+          </div>
+            <div  style="float: right; text-align: right;">
+                <app-standard-size [standardType]="'size'" [type]="'village'" [owner]="owner"></app-standard-size>
+             </div>
+        </div>
+        <div class="ui-g-12 ui-md-2 ui-lg-2" *ngIf="products[0].ratio !== 0">
+            <div class="wrap_product_logo">
+                <img src="../../../../assets/icons/{{getImage(0)}}">
+                <span [ngStyle]="competitorColor">{{getWordingType(0)}}</span>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-10 ui-lg-10" *ngIf="products[0].ratio !== 0">
+            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout" style="text-align: center;">
+                    สัดส่วน
+                    <input [(ngModel)]="products[0].ratio" size="7" type="text"
+                    *ngIf="owner !== 'user'"
+                    pInputText inputWithComma class="input-slider" (change)="handleRatioEnd(0)"  />
+                    <span *ngIf="owner === 'user'"> {{products[0].ratio | number: '1.0-2'}}</span> %
+                </div>
+                <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout" style="text-align: center;">
+                    คิดเป็น <span [ngStyle]="competitorColor"> {{ products[0].ratio/100 * productData[owner].usedArea  | number:'1.2-2' }} </span> ตร.ว.
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-6">
+                <div class="ui-g-6 ui-md-6 ui-lg-6">
+                    <p>ขนาด</p>
+                </div>
+                <div class="ui-g-6 ui-md-6 ui-lg-6 unit_value">
+                  <input [(ngModel)]="products[0].size" size="7" type="text"
+                    pInputText inputWithComma class="input-slider" (change)="handleRatioEnd(0, $event, 'size')"  /><span [ngStyle]="competitorColor">ตร.ว.</span>
+                    <!-- <p> {{ products[0].size | number }} ตร.ว.</p> -->
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <p-slider [(ngModel)]="products[0].size"
+                        [min]="product_limit.size.min"
+                        [max]="product_limit.size.max"
+                        (onSlideEnd)="handleRatioEnd(0, $event, 'size')"></p-slider>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-6">
+                <div class="ui-g-6 ui-md-6 ui-lg-6">
+                    <p>พื้นที่ใช้สอย</p>
+                </div>
+                <div class="ui-g-6 ui-md-6 ui-lg-6 unit_value">
+                  <input [(ngModel)]="products[0].area" size="7" type="text"
+                    pInputText inputWithComma class="input-slider" (change)="handleRatioEnd(0, $event, 'area')" /><span [ngStyle]="competitorColor">ตร.ม.</span>
+                    <!-- <p> {{ products[0].area | number  }} ตร.ม.</p> -->
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <p-slider [(ngModel)]="products[0].area"
+                        [min]="product_limit.area.min"
+                        [max]="product_limit.area.max"
+                        (onSlideEnd)="handleRatioEnd(0, $event,  'area')"></p-slider>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                <div class="ui-g-6 ui-md-6 ui-lg-6">
+                    <p>ราคาขาย</p>
+                </div>
+                <div class="ui-g-6 ui-md-6 ui-lg-6 unit_value">
+                  <input [(ngModel)]="products[0].cost" size="7" type="text"
+                    pInputText inputWithComma class="input-slider"  (change)="handleRatioEnd(0, $event, 'cost')"/> <span [ngStyle]="competitorColor">ล้านบาท</span>
+                    <!-- <p> {{ products[0].cost}} ล้านบาท</p> -->
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <p-slider [(ngModel)]="products[0].cost" [min]="product_limit.cost.min"
+                        [max]="product_limit.cost.max"
+                        (onSlideEnd)="handleRatioEnd(0, $event, 'cost')"></p-slider>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-g-12 ui-md-2 ui-lg-2" *ngIf="products[1].ratio !== 0">
+            <div class="wrap_product_logo">
+                <img src="../../../../assets/icons/{{getImage(1)}}">
+                <span  [ngStyle]="competitorColor">{{getWordingType(1)}}</span>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-10 ui-lg-10" *ngIf="products[1].ratio !== 0">
+            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout" style="text-align: center;">
+                    สัดส่วน
+                    <input [(ngModel)]="products[1].ratio" size="7" type="text"
+                    *ngIf="owner !== 'user'"
+                    pInputText inputWithComma class="input-slider" (change)="handleRatioEnd(0)"  />
+                    <span *ngIf="owner === 'user'"> {{products[1].ratio }}</span> %
+                </div>
+                <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout" style="text-align: center;">
+                    คิดเป็น <span [ngStyle]="competitorColor"> {{ products[1].ratio/100 * productData[owner].usedArea  | number:'1.2-2' }} </span> ตร.ว.
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-6">
+                <div class="ui-g-6 ui-md-6 ui-lg-6">
+                    <p>ขนาด</p>
+                </div>
+                <div class="ui-g-6 ui-md-6 ui-lg-6 unit_value">
+                  <input [(ngModel)]="products[1].size" size="7" type="text"
+                    pInputText inputWithComma class="input-slider" (change)="handleRatioEnd(0, $event, 'size')"> <span [ngStyle]="competitorColor">ตร.ว.</span>
+                    <!-- <p> {{ products[1].size }} ตร.ว.</p> -->
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <p-slider [(ngModel)]="products[1].size"
+                        [min]="product_limit.size.min"
+                        [max]="product_limit.size.max"
+                        (onSlideEnd)="handleRatioEnd(1, $event, 'size')"></p-slider>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-6">
+                <div class="ui-g-6 ui-md-6 ui-lg-6">
+                    <p>พื้นที่ใช้สอย</p>
+                </div>
+                <div class="ui-g-6 ui-md-6 ui-lg-6 unit_value">
+                  <input [(ngModel)]="products[1].area" size="7" type="text"
+                    pInputText inputWithComma class="input-slider" (change)="handleRatioEnd(0, $event, 'area')" /><span [ngStyle]="competitorColor">ตร.ม.</span>
+                    <!-- <p> {{ products[1].area }} ตร.ม.</p> -->
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <p-slider [(ngModel)]="products[1].area"
+                        [min]="product_limit.area.min"
+                        [max]="product_limit.area.max"
+                        (onSlideEnd)="handleRatioEnd(1, $event, 'area')"></p-slider>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                <div class="ui-g-6 ui-md-6 ui-lg-6">
+                    <p>ราคาขาย</p>
+                </div>
+                <div class="ui-g-6 ui-md-6 ui-lg-6 unit_value">
+                  <input [(ngModel)]="products[1].cost" size="7" type="text"
+                  pInputText inputWithComma class="input-slider"  (change)="handleRatioEnd(0, $event, 'cost')"/> <span [ngStyle]="competitorColor">ล้านบาท</span>
+                    <!-- <p> {{ products[1].cost}} ล้านบาท</p> -->
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <p-slider [(ngModel)]="products[1].cost" [min]="product_limit.cost.min"
+                        [max]="product_limit.cost.max"
+                        (onSlideEnd)="handleRatioEnd(1, $event, 'cost')"></p-slider>
+                </div>
+            </div>
+            <!-- <div class="ui-g-12 ui-md-6 ui-lg-6">
+                <div class="ui-g-6 ui-md-6 ui-lg-6">
+                    <p>สัดส่วน</p>
+                </div>
+                <div class="ui-g-6 ui-md-6 ui-lg-6 unit_value">
+                    <p> {{ products[1].ratio }} %</p>
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <app-custom-slider [(ngModel)]="products[1].ratio" [maxTotal]="product_limit.ratio.max"
+                        [commonValue]="totalRatio" [min]="product_limit.ratio.min" [max]="product_limit.ratio.max"
+                        (onChange)="handleRatioChange(1, $event)"
+                        (onSlideEnd)="handleRatioEnd(1, $event)">
+                    </app-custom-slider>
+                </div>
+            </div> -->
+        </div>
+
+        <div class="ui-g-12 ui-md-2 ui-lg-2" *ngIf="products[2].ratio !== 0">
+            <div class="wrap_product_logo">
+                <img src="../../../../assets/icons/{{getImage(2)}}">
+                <span  [ngStyle]="competitorColor">{{getWordingType(2)}}</span>
+            </div>
+        </div>
+        <div class="ui-g-12 ui-md-10 ui-lg-10" *ngIf="products[2].ratio !== 0">
+            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout" style="text-align: center;">
+                    สัดส่วน
+                    <span *ngIf="owner === 'user'"> {{products[2].ratio }}</span>
+                    <input [(ngModel)]="products[2].ratio" size="7" type="text"
+                    *ngIf="owner !== 'user'"
+                    pInputText inputWithComma class="input-slider" (change)="handleRatioEnd(0)"  /> %
+                </div>
+                <div class="ui-g-6 ui-md-6 ui-lg-6 box_layout" style="text-align: center;">
+                    คิดเป็น <span [ngStyle]="competitorColor"> {{ products[2].ratio/100 * productData[owner].usedArea  | number:'1.2-2' }} </span> ตร.ว.
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-6">
+                <div class="ui-g-6 ui-md-6 ui-lg-6">
+                    <p>ขนาด</p>
+                </div>
+                <div class="ui-g-6 ui-md-6 ui-lg-6 unit_value">
+                  <input [(ngModel)]="products[2].size" size="7" type="text"
+                    pInputText inputWithComma class="input-slider" (change)="handleRatioEnd(0, $event, 'size')"> <span [ngStyle]="competitorColor">ตร.ว.</span>
+                    <!-- <p> {{ products[2].size }} ตร.ว.</p> -->
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <p-slider [(ngModel)]="products[2].size" [min]="product_limit.size.min"
+                        [max]="product_limit.size.max"
+                        (onSlideEnd)="handleRatioEnd(2, $event, 'size')"></p-slider>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-6 ui-lg-6">
+                <div class="ui-g-6 ui-md-6 ui-lg-6">
+                    <p>พื้นที่ใช้สอย</p>
+                </div>
+                <div class="ui-g-6 ui-md-6 ui-lg-6 unit_value">
+                  <input [(ngModel)]="products[2].area" size="7" type="text"
+                    pInputText inputWithComma class="input-slider" (change)="handleRatioEnd(0, $event, 'area')" /><span [ngStyle]="competitorColor">ตร.ม.</span>
+                    <!-- <p> {{ products[2].area }} ตร.ม.</p> -->
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <p-slider [(ngModel)]="products[2].area" [min]="product_limit.area.min"
+                        [max]="product_limit.area.max"
+                        (onSlideEnd)="handleRatioEnd(2, $event, 'area')"></p-slider>
+                </div>
+            </div>
+            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                <div class="ui-g-6 ui-md-6 ui-lg-6">
+                    <p>ราคาขาย</p>
+                </div>
+                <div class="ui-g-6 ui-md-6 ui-lg-6 unit_value">
+                  <input [(ngModel)]="products[2].cost" size="7" type="text"
+                    pInputText inputWithComma class="input-slider"  (change)="handleRatioEnd(0, $event, 'cost')"/> <span [ngStyle]="competitorColor">ล้านบาท</span>
+                    <!-- <p> {{ products[2].cost}} ล้านบาท</p> -->
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <p-slider [(ngModel)]="products[2].cost" [min]="product_limit.cost.min"
+                        [max]="product_limit.cost.max"
+                        (onSlideEnd)="handleRatioEnd(2, $event, 'cost')"></p-slider>
+                </div>
+            </div>
+            <!-- <div class="ui-g-12 ui-md-6 ui-lg-6">
+                <div class="ui-g-6 ui-md-6 ui-lg-6">
+                    <p>สัดส่วน</p>
+                </div>
+                <div class="ui-g-6 ui-md-6 ui-lg-6 unit_value">
+                    <p> {{ products[2].ratio }} %</p>
+                </div>
+                <div class="ui-g-12 ui-md-12 ui-lg-12">
+                    <app-custom-slider [(ngModel)]="products[2].ratio" [maxTotal]="product_limit.ratio.max"
+                        [commonValue]="totalRatio" [min]="product_limit.ratio.min" [max]="product_limit.ratio.max"
+                        (onChange)="handleRatioChange(2, $event)"
+                        (onSlideEnd)="handleRatioEnd(2, $event)">
+                    </app-custom-slider>
+                </div>
+            </div> -->
+        </div>
+
+    </div>
+    <!-- </form> -->
+</div>

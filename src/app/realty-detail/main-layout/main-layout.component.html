@@ -1,0 +1,94 @@
+<div>
+  <div style="margin-bottom: 2%">
+    <span class="name-project"> <b>ชื่อโครงการ</b></span>
+    <p-dropdown
+      [options]="colorsTown"
+      [(ngModel)]="selectName"
+      placeholder="Select a City"
+      optionLabel="name"
+    >
+    </p-dropdown>
+    <button type="button" class="button-click" style="float: right">
+      ตัวสรุปทั้งหมด
+    </button>
+  </div>
+  <div class="ui-g">
+    <!-- <div class="ui-g">
+      <div class="ui-g-12 ui-md-12 ui-lg-12 bg_myasset_detail">
+        <figure><img src="../../../assets/icons/icon_place.svg" /></figure>
+        <figcaption>
+          <h1>ข้อมูลพื้นที่</h1>
+        </figcaption>
+      </div>
+    </div> -->
+    <div class="ui-lg-2"></div>
+    <div class="ui-g-12 ui-md-12 ui-lg-8">
+      <mat-horizontal-stepper labelPosition="bottom" [linear]="true" #stepper>
+        <mat-step state="phone">
+          <ng-template matStepLabel
+            >กรอกข้อมูลพื้นที่<br />ของโครงการ</ng-template
+          >
+        </mat-step>
+        <mat-step matStepperIcon="chat">
+          <ng-template matStepLabel
+            >กรอกค่าใช้จ่ายทั้งหมด<br />ของโครงการ</ng-template
+          >
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel
+            >ประเมิณค่าใช้จ่าย<br />เป็นเปอร์เซ็น</ng-template
+          >
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel
+            >Cash in flow<br />Cash out flow</ng-template
+          >
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel
+            >รายละเอียดโดยรวม<br />ของโครงการ</ng-template
+          >
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+    <div class="ui-g-12 ui-md-12 ui-lg-12 mat-group">
+      <mat-button-toggle-group
+        #group="matButtonToggleGroup"
+        [value]="selectedWindow"
+        (change)="onChange(group.value)"
+        style="margin-bottom: 2%;"
+      >
+        <mat-button-toggle value="area" class="col-2">
+          <span class="box-color">กรอกข้อมูลพื้นที่<br />ของโครงการ</span>
+        </mat-button-toggle>
+        <mat-button-toggle value="spending" class="col-2">
+          <span class="box-color">กรอกค่าใช้จ่ายทั้งหมด<br />ของโครงการ</span>
+        </mat-button-toggle>
+        <mat-button-toggle value="evaluate" class="col-2">
+          <span class="box-color">ประเมิณค่าใช้จ่าย<br />เป็นเปอร์เซ็น</span>
+        </mat-button-toggle>
+        <mat-button-toggle value="cashin" class="col-2">
+          <span class="box-color">Cash in flow<br />Cash out flow</span>
+        </mat-button-toggle>
+        <mat-button-toggle value="detail" class="col-2">
+          <span class="box-color">รายละเอียดโดยรวม<br />ของโครงการ</span>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+      <div *ngIf="selectedWindow === 'area'">
+        <app-area></app-area>
+      </div>
+      <div *ngIf="selectedWindow === 'spending'">
+        <h1>SPENDING</h1>
+      </div>
+      <div *ngIf="selectedWindow === 'evaluate'">
+        <h1>EVALUATE</h1>
+      </div>
+      <div *ngIf="selectedWindow === 'cashin'">
+        <h1>CASHIN</h1>
+      </div>
+      <div *ngIf="selectedWindow === 'detail'">
+        <h1>DETAIL</h1>
+      </div>
+    </div>
+  </div>
+</div>
