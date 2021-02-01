@@ -23,7 +23,7 @@
     </div> -->
     <div class="ui-lg-2"></div>
     <div class="ui-g-12 ui-md-12 ui-lg-8">
-      <mat-horizontal-stepper labelPosition="bottom" [linear]="true" #stepper>
+      <mat-horizontal-stepper labelPosition="bottom" [linear]="true" #stepper style="border: 0;">
         <mat-step state="phone">
           <ng-template matStepLabel
             >กรอกข้อมูลพื้นที่<br />ของโครงการ</ng-template
@@ -56,7 +56,6 @@
         #group="matButtonToggleGroup"
         [value]="selectedWindow"
         (change)="onChange(group.value)"
-        style="margin-bottom: 2%;"
       >
         <mat-button-toggle value="area" class="col-2">
           <span class="box-color">กรอกข้อมูลพื้นที่<br />ของโครงการ</span>
@@ -74,19 +73,19 @@
           <span class="box-color">รายละเอียดโดยรวม<br />ของโครงการ</span>
         </mat-button-toggle>
       </mat-button-toggle-group>
-      <div *ngIf="selectedWindow === 'area'">
+      <div *ngIf="selectedWindow === 'area'" class="bg-white">
         <app-area></app-area>
       </div>
-      <div *ngIf="selectedWindow === 'spending'">
+      <div *ngIf="selectedWindow === 'spending'" class="bg-white">
         <h1>SPENDING</h1>
       </div>
-      <div *ngIf="selectedWindow === 'evaluate'">
+      <div *ngIf="selectedWindow === 'evaluate'" class="bg-white">
         <h1>EVALUATE</h1>
       </div>
-      <div *ngIf="selectedWindow === 'cashin'">
+      <div *ngIf="selectedWindow === 'cashin'" class="bg-white">
         <h1>CASHIN</h1>
       </div>
-      <div *ngIf="selectedWindow === 'detail'">
+      <div *ngIf="selectedWindow === 'detail'" class="bg-white">
         <h1>DETAIL</h1>
       </div>
     </div>

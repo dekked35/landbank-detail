@@ -1017,8 +1017,8 @@ body .ui-slider .ui-slider-handle {
 body .competitorBack .ui-slider .ui-slider-handle {
   height: 1.3em;
   width: 1.3em;
-  background-color: #FF8C00;
-  border: 4px solid #FFA500;
+  background-color: #ff8c00;
+  border: 4px solid #ffa500;
   -moz-border-radius: 100%;
   -webkit-border-radius: 100%;
   border-radius: 100%;
@@ -1422,9 +1422,9 @@ body .ui-button {
   transition: background-color 0.2s, box-shadow 0.2s;
 }
 
-.competitor{
-  background-color : #FF781F !important;
-  border : 1px solid #FF781F !important;
+.competitor {
+  background-color: #ff781f !important;
+  border: 1px solid #ff781f !important;
 }
 
 @media (max-width: 767px) {
@@ -4545,16 +4545,16 @@ body
   margin-right: 6px !important;
 }
 
-.input-slider-60{
+.input-slider-60 {
   width: 60px;
   margin-right: 6px !important;
 }
 
-.two-button{
+.two-button {
   width: 7em !important;
   margin-right: 5px !important;
 }
-body .competitor >.ui-button{
+body .competitor > .ui-button {
   background-color: #ff781f;
   border: 1px solid #ff781f;
 }
@@ -4563,5 +4563,50 @@ body .competitor >.ui-button{
   line-height: 30px !important;
 }
 
+.arrow_box {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  height: 100px;
+  width: 180px;
+}
+
+.arrow_box:before {
+  right: 39%;
+  top: 95%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.arrow_box:before {
+  border-color: rgba(0, 0, 0, 0);
+  border-right-color: #000000;
+  border-width: 20px;
+}
+
+#chart .apexcharts-tooltip {
+  color: #fff;
+  /* transform: translateX(10px) translateY(10px); */
+  overflow: visible !important;
+  white-space: normal !important;
+}
+
+#chart .apexcharts-tooltip span {
+  padding: 5px 10px;
+  display: inline-block;
+}
+
+.mat-button-toggle {
+  background-color: #e0e0e0 !important;
+}
+
+.mat-button-toggle-checked {
+  background-color: white !important;
+}
 
 /* Add your customizations of theme here */

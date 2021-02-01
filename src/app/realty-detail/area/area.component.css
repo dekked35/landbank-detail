@@ -46,6 +46,7 @@ input {
   color: #007ad9;
   font-weight: 600;
   margin-right: 5px;
+  border-radius: 10px;
 }
 
 .area-input {
@@ -76,4 +77,24 @@ input {
 .box > .unit {
   margin: 0;
   text-align: end;
+}
+
+.all-price {
+  color: #0a5f86;
+}
+
+.price-num {
+  color: #fd9227
+}
+
+.date {
+  color: #4b90b2
+}
+
+.price-unit {
+  font-size: 22px;
+}
+
+.red-color {
+  color: red;
 }

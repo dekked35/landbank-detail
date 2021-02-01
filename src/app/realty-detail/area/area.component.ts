@@ -87,6 +87,6 @@ export class AreaComponent implements OnInit {
 
   setInitialValue() {
     this.areaData = this.shemaManagerService.getAreaSchema('village')
-    console.log(this.areaData)
+
   }
 }

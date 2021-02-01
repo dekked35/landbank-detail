@@ -1,4 +1,4 @@
-<div class="ui-g">
+<div class="ui-g" style="padding: 10px;">
   <div class="ui-g-12 ui-md-12 ui-lg-12 bg_myasset_detail">
     <figure><img src="../../../assets/icons/icon_place.svg" /></figure>
     <figcaption>
@@ -151,25 +151,25 @@
     <div class="ui-g">
       <div class="ui-g-12 ui-md-6 ui-lg-6">
         <div class="ui-g-12 ui-md-12 ui-lg-12 land-price padding-0">
-          <span>ค่าที่ดินทั้งหมด</span>
+          <span class="all-price">ค่าที่ดินทั้งหมด</span>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12 padding-0">
-          <span>1 Jun - 30 Jul 2020</span>
+          <span class="date">1 Jun - 30 Jul 2020</span>
         </div>
       </div>
       <div class="ui-g-12 ui-md-6 ui-lg-6">
         <div class="ui-g-12 ui-md-12 ui-lg-12 land-price float-right padding-0">
-          <span>2,500,000,000.00</span>
+          <span class="price-num">2,500,000,000.00</span>
         </div>
-        <div class="ui-g-12 ui-md-12 ui-lg-12 float-right">
-          <span>บาท</span>
+        <div class="ui-g-12 ui-md-12 ui-lg-12 padding-0 float-right">
+          <span class="all-price price-unit">บาท</span>
         </div>
       </div>
       <div class="ui-g-12 ui-md-12 ui-lg-12 padding-0">
         <p>*หมายเหตุ</p>
-        <p>
+        <p class="red-color">
           -
-          ราคาขายที่ดินไม่ควรตั้งตำกว่าราคานี้และโดยปกติแล้วค่านี้ไม่ควรต่ำกว่า
+          ราคาขายที่ดินไม่ควรตั้งต่ำกว่าราคานี้และโดยปกติแล้วค่านี้ไม่ควรต่ำกว่า
           10,000 บาท
         </p>
       </div>
@@ -183,7 +183,9 @@
   </div>
   <div class="ui-g-12 ui-md-12 ui-lg-12 area-input">
     <div class="ui-g">
-      <div class="ui-g-12 ui-md-4 ui-lg-4">GRAPH</div>
+      <div class="ui-g-12 ui-md-4 ui-lg-4">
+        <app-charts [chartType]="'area'" [chartData]="areaData.ratio_area"> </app-charts>
+      </div>
       <div class="ui-g-12 ui-md-4 ui-lg-4">
         <div class="ui-g-12 ui-md-12 ui-lg-12">
           <div class="box">
@@ -217,7 +219,7 @@
           <div class="box">
             <span>ค่าที่ดินทั้งหมด</span>
             <p class="value">15,000</p>
-            <p class="unit">ตร.ว.</p>
+            <p class="unit">บาท</p>
           </div>
         </div>
       </div>
