@@ -14,7 +14,7 @@
         <span>สีผังเมือง</span>
       </div>
       <div class="ui-g-6 ui-md-6 ui-lg-3">
-        <p-dropdown [options]="colorsTown" [(ngModel)]="townPlanColor" size="8">
+        <p-dropdown [options]="colorsTown" [(ngModel)]="areaData.townPlanColor" size="8">
           <ng-template let-item pTemplate="selectedItem">
             <div
               class="box_color"
@@ -44,6 +44,7 @@
           type="text"
           pInputText
           matInputCommified
+          [(ngModel)]="areaData.osrValue"
         />
         <p-button
           icon="pi pi-info-circle"
@@ -66,10 +67,10 @@
       <div class="ui-g-6 ui-md-6 ui-lg-3">
         <input
           size="16"
-          pKeyFilter="int"
           type="text"
           pInputText
           matInputCommified
+          [(ngModel)]="areaData.fenceLength"
         />
         หลัง
       </div>
@@ -86,6 +87,8 @@
           type="text"
           pInputText
           matInputCommified
+          [(ngModel)]="areaData.totalArea"
+          (change)="changeTotalPrice()"
         />
         ตร.ว.
         <button
@@ -112,6 +115,7 @@
           type="text"
           pInputText
           matInputCommified
+          [(ngModel)]="areaData.farValue"
         />
       </div>
       <div class="ui-g-6 ui-md-6 ui-lg-3">
@@ -127,6 +131,7 @@
           type="text"
           pInputText
           matInputCommified
+          [(ngModel)]="areaData.lawArea"
         />
         ตร.ว.
       </div>
@@ -143,6 +148,8 @@
           type="text"
           pInputText
           matInputCommified
+          [(ngModel)]="areaData.landPrice"
+          (change)="changeTotalPrice()"
         />
         บาท
       </div>
@@ -159,7 +166,7 @@
       </div>
       <div class="ui-g-12 ui-md-6 ui-lg-6">
         <div class="ui-g-12 ui-md-12 ui-lg-12 land-price float-right padding-0">
-          <span class="price-num">2,500,000,000.00</span>
+          <span class="price-num">{{totalPrice | number}}</span>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12 padding-0 float-right">
           <span class="all-price price-unit">บาท</span>
@@ -185,6 +192,47 @@
     <div class="ui-g">
       <div class="ui-g-12 ui-md-4 ui-lg-4">
         <app-charts [chartType]="'area'" [chartData]="areaData.ratio_area"> </app-charts>
+        <div class="ui-g-12 ui-md-6 ui-lg-12 ">
+          <div class="ui-g-12 ui-md-12 ui-lg-12">
+              <div class="box_layout">
+                  <figure>
+                      <img src="../../../../../../assets/icons/comment.svg">
+                  </figure>
+                  <figcaption style="color: #0060be; font-size:15px; font-weight: 600;">
+                      ความคิดเห็นจากเรา
+                  </figcaption>
+              </div>
+          </div>
+          <div class="ui-g-12 ui-md-12 ui-lg-12 box_layout bold-font">
+              ความสวยงาม
+              <span [ngStyle]="getScoreColor(this.areaData.standardArea.score.beauty)">
+                {{this.areaData.standardArea.score.beauty}}
+              </span>
+              <!-- <span style="color:red;"> มาก </span> -->
+              <!-- <p-rating  readonly="true" stars="5" [cancel]="false" [ngModel]="5"></p-rating> -->
+          </div>
+          <div class="ui-g-12 ui-md-12 ui-lg-12 box_layout bold-font">
+              ความหนาแน่น
+              <span [ngStyle]="getScoreColor(this.areaData.standardArea.score.density)">
+                {{this.areaData.standardArea.score.density}}
+              </span>
+              <!-- <p-rating  readonly="true" stars="5" [cancel]="false" [ngModel]="3"></p-rating> -->
+          </div>
+          <div class="ui-g-12 ui-md-12 ui-lg-12 box_layout bold-font">
+              พื้นที่ขาย
+              <span [ngStyle]="getScoreColor(this.areaData.standardArea.score.congestion)">
+                {{this.areaData.standardArea.score.congestion}}
+              </span>
+              <!-- <p-rating  readonly="true" stars="5" [cancel]="false" [ngModel]="3"></p-rating> -->
+          </div>
+          <div class="ui-g-12 ui-md-12 ui-lg-12 box_layout bold-font">
+              พื้นที่อำนวยความสะดวก
+              <span [ngStyle]="getScoreColor(this.areaData.standardArea.score.convenientArea)">
+                {{this.areaData.standardArea.score.convenientArea}}
+              </span>
+              <!-- <p-rating  readonly="true" stars="5" [cancel]="false" [ngModel]="4"></p-rating> -->
+          </div>
+      </div>
       </div>
       <div class="ui-g-12 ui-md-4 ui-lg-4">
         <div class="ui-g-12 ui-md-12 ui-lg-12">
@@ -193,7 +241,7 @@
               <img src="../../../assets/icons/icon_fence.svg">
             </div>
             <span>ความยาวรั้วโดยประมาณ</span>
-            <p class="value">489.45</p>
+            <p class="value">{{areaData.fenceLength | number}}</p>
           </div>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12">
@@ -202,7 +250,7 @@
               <img src="../../../assets/icons/icon_far.svg" />
             </div>
             <span>ค่า ORS</span>
-            <p class="value">10</p>
+            <p class="value">{{areaData.osrValue | number}}</p>
           </div>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12">
@@ -211,14 +259,14 @@
               <img src="../../../assets/icons/icon_law.svg" />
             </div>
             <span>พื้นที่ใช้ได้ตามกฏหมาย</span>
-            <p class="value">15,000</p>
+            <p class="value">{{areaData.lawArea | number}}</p>
             <p class="unit">ตร.ว.</p>
           </div>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12">
           <div class="box">
             <span>ค่าที่ดินทั้งหมด</span>
-            <p class="value">15,000</p>
+            <p class="value">{{areaData.landPrice | number}}</p>
             <p class="unit">บาท</p>
           </div>
         </div>
@@ -230,7 +278,7 @@
               <img src="../../../assets/icons/icon_far.svg" />
             </div>
             <span>ค่า FAR</span>
-            <p class="value">10</p>
+            <p class="value">{{areaData.farValue | number}}</p>
           </div>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12">
@@ -239,7 +287,7 @@
               <img src="../../../assets/icons/icon_allarea.svg" />
             </div>
             <span>พื้นที่รวม</span>
-            <p class="value">10</p>
+            <p class="value">{{areaData.totalArea | number}}</p>
           </div>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12">
@@ -248,12 +296,16 @@
               <img src="../../../assets/icons/icon_expense.svg" />
             </div>
             <span>ราคาที่ดิน</span>
-            <p class="value">10</p>
+            <p class="value">{{areaData.landPrice | number}}</p>
             <p class="unit">บาท/ตร.ว.</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div></div>
+  <div class="ui-g-12">
+    <button pButton type="button" class="button-click" (click)="save()">
+      บันทึกการปรับเปลี่ยน
+    </button>
+  </div>
 </div>

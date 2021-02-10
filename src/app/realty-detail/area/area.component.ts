@@ -46,13 +46,14 @@ export class AreaComponent implements OnInit {
     { label: 'Orange', color: '#006200' },
     { label: 'Orange', color: '#FFCED1' },
     { label: 'Orange', color: '#2263FF' }
-  ]
+  ];
   townPlanColor: any;
   areaData: any;
   tableSize: any;
+  totalPrice: number;
 
   ngOnInit() {
-    this.setInitialValue()
+    this.setInitialValue();
     this.store.select(fromCore.getArea).subscribe((data) => {
       this.is_loading = data.isLoading;
       this.error = data.error;
@@ -73,7 +74,6 @@ export class AreaComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required],
     });
-    this.townPlanColor = { color: '#FFFC10' };
   }
 
   checkInnerWidth() {
@@ -85,8 +85,43 @@ export class AreaComponent implements OnInit {
     }
   }
 
-  setInitialValue() {
-    this.areaData = this.shemaManagerService.getAreaSchema('village')
+  async setInitialValue() {
+    const DB = await this.requestManagerService.getArea()
+    const default_old= this.shemaManagerService.getAreaSchema('village');
+    this.areaData = DB;
+    this.areaData.ratio_area = default_old.ratio_area;
+    this.areaData.standardArea = default_old.standardArea;
+    this.totalPrice = +this.areaData.landPrice * +this.areaData.totalArea;
+  }
 
+  changeTotalPrice() {
+    this.totalPrice = +this.areaData.landPrice * +this.areaData.totalArea;
+  }
+
+  getScoreColor(type: string) {
+    if (type === 'มาก') {
+      return { 'color': 'green', 'float': 'right' };
+    }
+    if (type === 'ปานกลาง') {
+      return { 'color': 'orange', 'float': 'right' };
+    }
+    if (type === 'น้อย') {
+      return { 'color': 'red', 'float': 'right' };
+    }
+  }
+
+  save() {
+    const payload = {
+      'feasibility' : localStorage.getItem('id'),
+      'city_color' : this.areaData.townPlanColor,
+      'ors' : parseFloat(this.areaData.osrValue.toString().replace(/,/g, '')),
+      'fence_length' : parseFloat(this.areaData.fenceLength.toString().replace(/,/g, '')),
+      'total_area' : parseFloat(this.areaData.totalArea.toString().replace(/,/g, '')),
+      'far' : parseFloat(this.areaData.farValue.toString().replace(/,/g, '')),
+      'legal_area' : parseFloat(this.areaData.lawArea.toString().replace(/,/g, '')),
+      'land_price' : parseFloat(this.areaData.landPrice.toString().replace(/,/g, '')),
+      'total_land_cost' : parseFloat(this.areaData.landPrice.toString().replace(/,/g, '')) * 100,
+    };
+    this.requestManagerService.updateArea(payload);
   }
 }

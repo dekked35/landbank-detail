@@ -101,7 +101,6 @@ export class ChartsComponent implements OnInit, OnChanges, OnDestroy {
     const chartDefault = JSON.parse(
       JSON.stringify(appCharts[this.currentProperty][chartType])
     );
-    console.log(chartDefault);
     switch (chartType) {
       case 'area':
         if (this.chart !== undefined) {
@@ -109,6 +108,15 @@ export class ChartsComponent implements OnInit, OnChanges, OnDestroy {
           this.chart.updateOptions(chartDefault);
         } else {
           chartDefault.series = this.areaChartMapping(this.currentProperty);
+          this.chartOptions = chartDefault;
+        }
+        break;
+      case 'houseType':
+        if (this.chart !== undefined) {
+          chartDefault.series = this.houseChartMapping(this.currentProperty);
+          this.chart.updateOptions(chartDefault);
+        } else {
+          chartDefault.series = this.houseChartMapping(this.currentProperty);
           this.chartOptions = chartDefault;
         }
         break;
@@ -138,6 +146,14 @@ export class ChartsComponent implements OnInit, OnChanges, OnDestroy {
       +this.chartData.roadSize,
       +this.chartData.greenArea,
       +this.chartData.centerArea,
+    ];
+    return series;
+  }
+
+  houseChartMapping(currentProperty: string): Array<number> {
+    let series = [];
+    series = [
+      243, 121, 121
     ];
     return series;
   }

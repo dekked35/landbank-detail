@@ -54,7 +54,7 @@ import { CalendarModule } from 'primeng/calendar';
     DynamicDialogModule,
     OverlayPanelModule,
     SelectButtonModule,
-    RatingModule
+    RatingModule,
   ],
   exports: [
     CommonModule,
@@ -82,7 +82,7 @@ import { CalendarModule } from 'primeng/calendar';
     CalendarModule,
     DynamicDialogModule,
     OverlayPanelModule,
-    RatingModule
+    RatingModule,
   ]
 })
 export class PrimengModule { }

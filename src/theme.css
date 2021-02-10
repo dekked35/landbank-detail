@@ -1244,6 +1244,7 @@ body .ui-calendar.ui-calendar-w-btn .ui-inputtext {
   -webkit-border-bottom-right-radius: 0;
   border-bottom-right-radius: 0;
   border-right: 0 none;
+  width: 7vw;
 }
 body
   .ui-calendar.ui-calendar-w-btn

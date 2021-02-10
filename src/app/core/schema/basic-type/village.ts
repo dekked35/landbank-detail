@@ -1,13 +1,13 @@
 export const village = {
     'area': {
-        'townPlanColor': '',
-        'farValue': 3,
-        'osrValue': 10,
-        'availableArea': 5000,
-        'landPrice': 250000,
-        'fenceLength': 0,
-        'totalArea': 10000,
-
+        'townPlanColor': '#FFFC10',
+        'farValue': '3',
+        'osrValue': '10',
+        'availableArea': '5000',
+        'landPrice': '250000',
+        'fenceLength': '282.59',
+        'totalArea': '10000',
+        'lawArea' : '40000',
         'standardArea': {
             'id': 1,
             'name': 'แบบที่ 1',

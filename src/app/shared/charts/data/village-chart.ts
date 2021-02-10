@@ -29,5 +29,34 @@ export const chartsType = {
     dataLabels: {
       enabled: false,
     },
+  },
+  houseType: {
+    chart: {
+      // width: 380,
+      type: 'pie',
+      fontFamily: 'Prompt',
+    },
+    legend: {
+      show: false,
+    },
+    colors: ['#2060be', '#ffb02d', '#3abe6b'],
+    labels: ['Type A', 'Type B', 'Type C'],
+    series: [1, 1, 1],
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 250,
+          },
+          legend: {
+            position: 'bottom',
+          },
+        },
+      },
+    ],
+    dataLabels: {
+      enabled: false,
+    },
   }
 };

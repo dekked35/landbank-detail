@@ -42,4 +42,20 @@ export class BasicTypeService {
     return this.http.post(url, payload);
   }
 
+  getArea(): Observable<any> {
+    // const id = localStorage.getItem('id')
+    const url = ENV.FEASIBILITY_API + '/feasibility_areas/2';
+    return this.http.get(url);
+  }
+
+  postArea(payload): Observable<any> {
+    const url = ENV.FEASIBILITY_API + '/feasibility_areas';
+    return this.http.post(url, payload);
+  }
+
+  updateArea(payload): Observable<any> {
+    const url = ENV.FEASIBILITY_API + '/feasibility_areas/2';
+    return this.http.put(url, payload);
+  }
+
 }
