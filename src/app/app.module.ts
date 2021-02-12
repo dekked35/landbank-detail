@@ -37,7 +37,9 @@ import { ContructionCostTableComponent } from './shared/contruction-cost-table/c
 import { ProfitTableComponent } from './shared/profit-table/profit-table.component';
 import {NgxMaterialToolsModule} from 'ngx-material-tools';
 import {NumberCommaDirective} from './shared/number-comma.directive'
-import {MaterialModule} from './material.module'
+import {MaterialModule} from './material.module';
+import { HouseTypeComponent } from './realty-detail/spendings/house-type/house-type.component';
+import { CommonAreaComponent } from './realty-detail/spendings/common-area/common-area.component'
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import {MaterialModule} from './material.module'
     ContructionCostTableComponent,
     ProfitTableComponent,
     NumberCommaDirective,
-    OrangeComponent
+    OrangeComponent,
+    HouseTypeComponent,
+    CommonAreaComponent
   ],
   imports: [
     BrowserModule,

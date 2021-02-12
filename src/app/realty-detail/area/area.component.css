@@ -84,11 +84,11 @@ input {
 }
 
 .price-num {
-  color: #fd9227
+  color: #fd9227;
 }
 
 .date {
-  color: #4b90b2
+  color: #4b90b2;
 }
 
 .price-unit {
@@ -105,7 +105,8 @@ input {
 
 .button-click {
   text-align: center;
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
   border-radius: 30px;
   vertical-align: middle;
   font-size: 20px;
@@ -114,4 +115,13 @@ input {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+@media (max-width: 767px) {
+  .area-input {
+    margin-left: 0;
+  }
+  .land-price {
+    font-size: 30px;
+    font-weight: 500;
+  }
 }

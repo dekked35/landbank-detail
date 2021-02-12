@@ -17,13 +17,6 @@ import * as rateReturnAction from "../../core/actions/rate-return.actions";
 import * as fromCore from "../../core/reducers";
 
 import * as moment from "moment";
-const imageType = {
-  village: {
-    0: "home1.svg",
-    1: "home2.svg",
-    2: "home3.svg",
-  },
-};
 
 @Component({
   selector: "app-spendings",
@@ -39,12 +32,6 @@ export class SpendingsComponent implements OnInit, OnDestroy {
   rateReturnData: any;
 
   is_loading = true;
-  house = [
-    { index: 0, name: "Type A" },
-    { index: 1, name: "Type B" },
-    { index: 2, name: "Type C" },
-  ];
-  start_house = 0;
 
   constructor(
     private store: Store<any>,
@@ -103,28 +90,6 @@ export class SpendingsComponent implements OnInit, OnDestroy {
   changeType(type: string) {
     this.typeProductDetail = type;
     console.log(this.typeProductDetail);
-  }
-
-  increacedIndex() {
-    if (this.start_house < this.house.length - 1) {
-      this.start_house++;
-    }
-  }
-
-  decreasedIndex() {
-    if (this.start_house > 0) {
-      this.start_house--;
-    }
-  }
-
-  getImage(index: number) {
-    const wording = this.currentProperty;
-    return imageType[wording][index];
-  }
-
-  getWordingType(indexW: number) {
-    const wording = this.house.find((element) => element.index === indexW);
-    return wording.name;
   }
 
   ngOnDestroy() {

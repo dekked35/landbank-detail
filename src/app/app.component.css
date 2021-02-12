@@ -555,6 +555,10 @@ footer{
         padding-top: 15px;
         padding-bottom: 15px;
     }
+    .for-mobile{
+      padding-left: 5%;
+      padding-right: 0;
+    }
 }
 @media (min-width : 810px){
   .for-mobile{
