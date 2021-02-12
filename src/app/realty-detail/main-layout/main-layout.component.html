@@ -12,15 +12,7 @@
       ตัวสรุปทั้งหมด
     </button>
   </div>
-  <div class="ui-g">
-    <!-- <div class="ui-g">
-      <div class="ui-g-12 ui-md-12 ui-lg-12 bg_myasset_detail">
-        <figure><img src="../../../assets/icons/icon_place.svg" /></figure>
-        <figcaption>
-          <h1>ข้อมูลพื้นที่</h1>
-        </figcaption>
-      </div>
-    </div> -->
+  <div class="ui-g display-block-mobile">
     <div class="ui-lg-2"></div>
     <div class="ui-g-12 ui-md-12 ui-lg-8">
       <mat-horizontal-stepper
@@ -58,27 +50,73 @@
       </mat-horizontal-stepper>
     </div>
     <div class="ui-g-12 ui-md-12 ui-lg-12 mat-group">
-      <mat-button-toggle-group
-        #group="matButtonToggleGroup"
-        [value]="selectedWindow"
-        (change)="onChange(group.value)"
-      >
-        <mat-button-toggle value="area" class="col-2">
-          <span class="box-color">กรอกข้อมูลพื้นที่<br />ของโครงการ</span>
-        </mat-button-toggle>
-        <mat-button-toggle value="spending" class="col-2">
-          <span class="box-color">กรอกค่าใช้จ่ายทั้งหมด<br />ของโครงการ</span>
-        </mat-button-toggle>
-        <mat-button-toggle value="evaluate" class="col-2">
-          <span class="box-color">ประเมิณค่าใช้จ่าย<br />เป็นเปอร์เซ็น</span>
-        </mat-button-toggle>
-        <mat-button-toggle value="cashin" class="col-2">
-          <span class="box-color">Cash in flow<br />Cash out flow</span>
-        </mat-button-toggle>
-        <mat-button-toggle value="detail" class="col-2">
-          <span class="box-color">รายละเอียดโดยรวม<br />ของโครงการ</span>
-        </mat-button-toggle>
-      </mat-button-toggle-group>
+      <div class="large-size-screen">
+        <mat-button-toggle-group
+          #group="matButtonToggleGroup"
+          [value]="selectedWindow"
+          (change)="onChange(group.value)"
+        >
+          <mat-button-toggle value="area" class="col-2">
+            <span class="box-color">กรอกข้อมูลพื้นที่<br />ของโครงการ</span>
+          </mat-button-toggle>
+          <mat-button-toggle value="spending" class="col-2">
+            <span class="box-color">กรอกค่าใช้จ่ายทั้งหมด<br />ของโครงการ</span>
+          </mat-button-toggle>
+          <mat-button-toggle value="evaluate" class="col-2">
+            <span class="box-color">ประเมิณค่าใช้จ่าย<br />เป็นเปอร์เซ็น</span>
+          </mat-button-toggle>
+          <mat-button-toggle value="cashin" class="col-2">
+            <span class="box-color">Cash in flow<br />Cash out flow</span>
+          </mat-button-toggle>
+          <mat-button-toggle value="detail" class="col-2">
+            <span class="box-color">รายละเอียดโดยรวม<br />ของโครงการ</span>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div class="ui-g-12 ui-md-12 ui-lg-12 small-size-screen menu_feas">
+        <ul>
+          <li
+            [ngClass]="{ active: selectedWindow == 'area' }"
+            [ngStyle]="toggleNgStyle('area')"
+            (click)="toggleProperty('area')"
+          >
+            กรอกข้อมูลพื้นที่ของโครงการ
+            <i class="pi pi-angle-down" aria-hidden="true"></i>
+          </li>
+          <li
+            [ngClass]="{ active: selectedWindow == 'spending' }"
+            [ngStyle]="toggleNgStyle('spending')"
+            (click)="toggleProperty('spending')"
+          >
+            กรอกค่าใช้จ่ายทั้งหมดของโครงการ
+            <i class="pi pi-angle-down" aria-hidden="true"></i>
+          </li>
+          <li
+            [ngClass]="{ active: selectedWindow == 'evaluate' }"
+            [ngStyle]="toggleNgStyle('evaluate')"
+            (click)="toggleProperty('evaluate')"
+          >
+            ประเมิณค่าใช้จ่ายเป็นเปอร์เซ็น
+            <i class="pi pi-angle-down" aria-hidden="true"></i>
+          </li>
+          <li
+            [ngClass]="{ active: selectedWindow == 'cashin' }"
+            [ngStyle]="toggleNgStyle('cashin')"
+            (click)="toggleProperty('cashin')"
+          >
+            Cash in flow Cash out flow
+            <i class="pi pi-angle-down" aria-hidden="true"></i>
+          </li>
+          <li
+            [ngClass]="{ active: selectedWindow == 'detail' }"
+            [ngStyle]="toggleNgStyle('detail')"
+            (click)="toggleProperty('detail')"
+          >
+            รายละเอียดโดยรวมของโครงการ
+            <i class="pi pi-angle-down" aria-hidden="true"></i>
+          </li>
+        </ul>
+      </div>
       <div *ngIf="selectedWindow === 'area'" class="bg-white">
         <app-area></app-area>
       </div>

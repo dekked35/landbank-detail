@@ -21,6 +21,8 @@ export class MainLayoutComponent implements OnInit {
   forthFormGroup: FormGroup;
   fifthFormGroup: FormGroup;
 
+  showExpension = false;
+
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
   @ViewChild('one', { static: false }) one: MatStep;
   @ViewChild('two', { static: false }) two: MatStep;
@@ -34,7 +36,7 @@ export class MainLayoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.selectedWindow = 'spending';
+    this.selectedWindow = 'area';
     this.colorsTown = [
       { name: 'SOHO Bangkok Ratchada' },
       { name: 'โครงการหมู่บ้านจัดสรรแสรสิริ - ลาดปลาเค้า 48' },
@@ -98,6 +100,30 @@ export class MainLayoutComponent implements OnInit {
         return 4;
       default:
         return 0;
+    }
+  }
+
+  toggleProperty(propertyType: string) {
+    this.selectedWindow = propertyType
+    this.selectIndex = this.changeWordToValue(propertyType);
+    if (this.showExpension) {
+      this.showExpension = false;
+    } else {
+      this.showExpension = true;
+    }
+  }
+
+  toggleNgStyle(propertyType: string) {
+    const style_list_item = { display: 'list-item' };
+    const style_none = { display: 'none' };
+    if (this.showExpension) {
+      return style_list_item;
+    } else {
+      if (propertyType === this.selectedWindow) {
+        return style_list_item;
+      } else {
+        return style_none;
+      }
     }
   }
 }
