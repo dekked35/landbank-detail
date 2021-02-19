@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy, SimpleChanges } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  SimpleChanges,
+  Output,
+  EventEmitter,
+} from "@angular/core";
 import { BasicTypeService } from "../../core/services/basic-type.service";
 import { Store } from "@ngrx/store";
 
@@ -24,6 +31,7 @@ import * as moment from "moment";
   styleUrls: ["./spendings.component.css"],
 })
 export class SpendingsComponent implements OnInit, OnDestroy {
+  @Output() toggleEdit = new EventEmitter<any>();
   currentProperty: string;
   areaData: any;
   productData: any;
@@ -92,6 +100,9 @@ export class SpendingsComponent implements OnInit, OnDestroy {
     console.log(this.typeProductDetail);
   }
 
+  onSummit(event) {
+    this.toggleEdit.emit(event);
+  }
   ngOnDestroy() {
     // this.subscriptionArea.unsubscribe();
     // this.subscriptionProduct.unsubscribe();

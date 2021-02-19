@@ -57,7 +57,7 @@
           <div class="ui-g">
             <div class="ui-g-12 ui-md-6 ui-lg-6">
               <div class="ui-g-12 ui-md-12 ui-lg-12 land-price padding-0">
-                <span class="all-price">ค่าที่ดินทั้งหมด</span>
+                <span class="all-price">มูลค่าโครงการรวม</span>
               </div>
               <div class="ui-g-12 ui-md-12 ui-lg-12 padding-0">
                 <span class="date">1 Jun - 30 Jul 2020</span>
@@ -115,11 +115,11 @@
         </div>
       </div>
     </div>
+    <div *ngIf="typeProductDetail == 'commonArea'">
+      <app-common-area></app-common-area>
+    </div>
   </div>
 </div>
 <div *ngIf="typeProductDetail == 'houseType'">
-  <app-house-type></app-house-type>
-</div>
-<div *ngIf="typeProductDetail == 'commonArea'">
-  <app-common-area></app-common-area>
+  <app-house-type (toggleEdit)="onSummit($event)"></app-house-type>
 </div>
