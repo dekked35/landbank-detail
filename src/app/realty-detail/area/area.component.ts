@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, EventEmitter, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SelectItem } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -20,6 +20,7 @@ import { parse } from 'querystring';
   styleUrls: ['./area.component.css'],
 })
 export class AreaComponent implements OnInit {
+  @Output() toggleEdit = new EventEmitter<any>();
   constructor(
     private store: Store<any>,
     private defaultsVariableService: DefaultsVariableService,
@@ -123,5 +124,6 @@ export class AreaComponent implements OnInit {
       'total_land_cost' : parseFloat(this.areaData.landPrice.toString().replace(/,/g, '')) * 100,
     };
     this.requestManagerService.updateArea(payload);
+    this.toggleEdit.emit({next: '1', status: 'true'});
   }
 }

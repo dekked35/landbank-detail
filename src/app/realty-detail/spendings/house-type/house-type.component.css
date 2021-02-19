@@ -114,7 +114,7 @@
   cursor: pointer;
 }
 
-.detail-box{
+.detail-box {
   padding: 0 20px;
 }
 
@@ -132,7 +132,7 @@ input {
 
 .non-input {
   text-align: end;
-  padding-right: 20px;
+  padding-right: 40px;
 }
 
 .non-input-font {
@@ -140,4 +140,27 @@ input {
   margin-right: 15px;
   color: orange;
   font-weight: 600;
+}
+@media (max-width: 767px) {
+  .detail {
+    margin-left: 0;
+  }
+
+  .detail-box-new{
+    padding: 0 10px;
+  }
+}
+
+.button-click {
+  text-align: center;
+  width: 100%;
+  max-width: 350px;
+  border-radius: 30px;
+  vertical-align: middle;
+  font-size: 20px;
+  height: 50px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

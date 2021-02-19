@@ -156,3 +156,14 @@ input {
 .font-unit {
   font-size: 15px;
 }
+
+@media (max-width: 767px) {
+  .land-price {
+    font-size: 32px;
+    font-weight: 500;
+  }
+
+  .all-type {
+    padding: 0;
+  }
+}

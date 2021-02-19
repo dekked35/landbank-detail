@@ -4609,5 +4609,22 @@ body .competitor > .ui-button {
 .mat-button-toggle-checked {
   background-color: white !important;
 }
+@media (max-width: 767px) {
+  body .ui-calendar.ui-calendar-w-btn .ui-inputtext {
+    width: 75px;
+  }
+}
 
+.apexcharts-tooltip.apexcharts-theme-dark {
+  background-color: transparent !important;
+  border: 0;
+}
+
+.ui-carousel-dots-container {
+  display: none !important;
+}
+
+.ui-carousel-items-container .ui-carousel-item {
+  overflow-x: hidden;
+}
 /* Add your customizations of theme here */

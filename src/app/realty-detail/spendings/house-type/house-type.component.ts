@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, SimpleChanges } from "@angular/core";
+import { Component, OnInit, OnDestroy, SimpleChanges, Output, EventEmitter } from "@angular/core";
 import { BasicTypeService } from "../../../core/services/basic-type.service";
 import { Store } from "@ngrx/store";
 
@@ -32,6 +32,7 @@ const imageType = {
   styleUrls: ["./house-type.component.css"],
 })
 export class HouseTypeComponent implements OnInit {
+  @Output() toggleEdit = new EventEmitter<any>();
   house = [
     { index: 0, name: "Type A" },
     { index: 1, name: "Type B" },
@@ -106,5 +107,22 @@ export class HouseTypeComponent implements OnInit {
   getImage(index: number) {
     const wording = this.currentProperty;
     return imageType[wording][index];
+  }
+
+  save() {
+    // const payload = {
+    //   'feasibility' : localStorage.getItem('id'),
+    //   'city_color' : this.areaData.townPlanColor,
+    //   'ors' : parseFloat(this.areaData.osrValue.toString().replace(/,/g, '')),
+    //   'fence_length' : parseFloat(this.areaData.fenceLength.toString().replace(/,/g, '')),
+    //   'total_area' : parseFloat(this.areaData.totalArea.toString().replace(/,/g, '')),
+    //   'far' : parseFloat(this.areaData.farValue.toString().replace(/,/g, '')),
+    //   'legal_area' : parseFloat(this.areaData.lawArea.toString().replace(/,/g, '')),
+    //   'land_price' : parseFloat(this.areaData.landPrice.toString().replace(/,/g, '')),
+    //   'total_land_cost' : parseFloat(this.areaData.landPrice.toString().replace(/,/g, '')) * 100,
+    // };
+    // this.requestManagerService.updateArea(payload);
+    console.log('in')
+    this.toggleEdit.emit({next: '2', status: 'true'});
   }
 }

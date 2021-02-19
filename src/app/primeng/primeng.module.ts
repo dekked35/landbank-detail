@@ -26,6 +26,7 @@ import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { CalendarModule } from 'primeng/calendar';
+import {CarouselModule} from 'primeng/carousel';
 
 @NgModule({
   declarations: [],
@@ -55,6 +56,7 @@ import { CalendarModule } from 'primeng/calendar';
     OverlayPanelModule,
     SelectButtonModule,
     RatingModule,
+    CarouselModule,
   ],
   exports: [
     CommonModule,
@@ -83,6 +85,7 @@ import { CalendarModule } from 'primeng/calendar';
     DynamicDialogModule,
     OverlayPanelModule,
     RatingModule,
+    CarouselModule,
   ]
 })
 export class PrimengModule { }
