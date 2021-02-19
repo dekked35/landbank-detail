@@ -1,16 +1,20 @@
 <div>
-  <div style="margin-bottom: 2%">
-    <span class="name-project"> <b>ชื่อโครงการ</b></span>
-    <p-dropdown
-      [options]="colorsTown"
-      [(ngModel)]="selectName"
-      placeholder="Select a City"
-      optionLabel="name"
-    >
-    </p-dropdown>
-    <button type="button" class="button-click" style="float: right">
-      ตัวสรุปทั้งหมด
-    </button>
+  <div class="ui-g" style="margin-bottom: 2%">
+    <div class="ui-g-12 ui-md-12 ui-lg-6">
+      <span class="name-project"> <b>ชื่อโครงการ</b></span>
+      <p-dropdown
+        [options]="colorsTown"
+        [(ngModel)]="selectName"
+        placeholder="Select a City"
+        optionLabel="name"
+      >
+      </p-dropdown>
+    </div>
+    <div class="ui-g-12 ui-md-12 ui-lg-6">
+      <button type="button" class="button-click" style="float: right">
+        ตัวสรุปทั้งหมด
+      </button>
+    </div>
   </div>
   <div class="ui-g display-block-mobile">
     <div class="ui-lg-2"></div>
@@ -47,6 +51,14 @@
             >รายละเอียดโดยรวม<br />ของโครงการ</ng-template
           >
         </mat-step>
+        <ng-template matStepperIcon="number" let-index="index">
+          {{ index + 1 }}
+          <!-- <mat-icon>{{index === 0 ? 'perm_contact_calendar' : index === 1 ? 'group' : 'done'}}</mat-icon> -->
+        </ng-template>
+        <ng-template matStepperIcon="edit" let-index="index">
+          {{ index + 1 }}
+          <!-- <mat-icon>{{index === 0 ? 'perm_contact_calendar' : index === 1 ? 'group' : 'done'}}</mat-icon> -->
+        </ng-template>
       </mat-horizontal-stepper>
     </div>
     <div class="ui-g-12 ui-md-12 ui-lg-12 mat-group">
@@ -118,10 +130,10 @@
         </ul>
       </div>
       <div *ngIf="selectedWindow === 'area'" class="bg-white">
-        <app-area></app-area>
+        <app-area (toggleEdit)="onToggleEdit($event)"></app-area>
       </div>
       <div *ngIf="selectedWindow === 'spending'" class="bg-white">
-        <app-spendings></app-spendings>
+        <app-spendings (toggleEdit)="onToggleEdit($event)"></app-spendings>
       </div>
       <div *ngIf="selectedWindow === 'evaluate'" class="bg-white">
         <h1>EVALUATE</h1>

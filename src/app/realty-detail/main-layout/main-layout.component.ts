@@ -42,19 +42,19 @@ export class MainLayoutComponent implements OnInit {
       { name: 'โครงการหมู่บ้านจัดสรรแสรสิริ - ลาดปลาเค้า 48' },
     ];
     this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
+      setNext: ['true', Validators.required],
     });
     this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
+      setNext: ['true', Validators.required],
     });
     this.thirdFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
+      setNext: ['true', Validators.required],
     });
     this.forthFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
+      setNext: ['true', Validators.required],
     });
     this.fifthFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
+      setNext: ['true', Validators.required],
     });
   }
 
@@ -104,7 +104,7 @@ export class MainLayoutComponent implements OnInit {
   }
 
   toggleProperty(propertyType: string) {
-    this.selectedWindow = propertyType
+    this.selectedWindow = propertyType;
     this.selectIndex = this.changeWordToValue(propertyType);
     if (this.showExpension) {
       this.showExpension = false;
@@ -125,5 +125,11 @@ export class MainLayoutComponent implements OnInit {
         return style_none;
       }
     }
+  }
+
+  onToggleEdit(event: any) {
+    this.selectIndex = +event.next;
+    this.selectedWindow = this.changeValueToWord(+event.next);
+    console.log(this.selectIndex,this.selectedWindow)
   }
 }
