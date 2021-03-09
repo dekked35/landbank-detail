@@ -304,24 +304,24 @@ export class RequestManagerService {
     return m + '/' + d + '/' + y;
   }
 
-  mapName(response: any) : any {
+  mapName(response: any): any {
     return {
-      'townPlanColor': response.city_color,
-      'farValue': response.far.toString(),
-      'osrValue': response.ors.toString(),
+      townPlanColor: response.city_color,
+      farValue: response.far.toString(),
+      osrValue: response.ors.toString(),
       // 'availableArea': response.total_area.toString(),
-      'landPrice': response.land_price.toString(),
-      'fenceLength': response.fence_length.toString(),
-      'totalArea': response.total_area.toString(),
-      'lawArea' : response.legal_area.toString(),
-    }
+      landPrice: response.land_price.toString(),
+      fenceLength: response.fence_length.toString(),
+      totalArea: response.total_area.toString(),
+      lawArea: response.legal_area.toString(),
+    };
   }
 
-  getArea(): Promise<any> {
+  getArea(id): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.basicTypeService.getArea().subscribe(
+      this.basicTypeService.getArea(id).subscribe(
         (response) => {
-          console.log('Get area successfully.',response);
+          console.log('Get area successfully.', response);
           resolve(this.mapName(response));
         },
         (err) => {
@@ -337,7 +337,7 @@ export class RequestManagerService {
     return new Promise((resolve, reject) => {
       this.basicTypeService.postArea(payload).subscribe(
         (response) => {
-          console.log('Get area successfully.',response);
+          console.log('Get area successfully.', response);
           resolve(response);
         },
         (err) => {
@@ -353,7 +353,100 @@ export class RequestManagerService {
     return new Promise((resolve, reject) => {
       this.basicTypeService.updateArea(payload).subscribe(
         (response) => {
-          console.log('Get area successfully.',response);
+          console.log('Get area successfully.', response);
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+
+  getUserInfo(payload: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.getUserInfo(payload).subscribe(
+        (response) => {
+          console.log('Get area successfully.', response);
+          localStorage.setItem('info', JSON.stringify(response));
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+
+  insertOperation(payload: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.insertOperation(payload).subscribe(
+        (response) => {
+          console.log('Insert Operation successfully.', response);
+          const local = JSON.parse(localStorage.getItem('info'));
+          local.feasibility_operation_setting = response;
+          localStorage.setItem('info', JSON.stringify(local));
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+
+  updateOperation(payload: any, id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.updateOperation(payload, id).subscribe(
+        (response) => {
+          console.log('Update Operation successfully.', response);
+          const local = JSON.parse(localStorage.getItem('info'));
+          local.feasibility_operation_setting = response;
+          localStorage.setItem('info', JSON.stringify(local));
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+
+  insertCommon(payload: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.insertCommon(payload).subscribe(
+        (response) => {
+          console.log('Insert Common successfully.', response);
+          const local = JSON.parse(localStorage.getItem('info'));
+          local.feasibility_common_setting = response;
+          localStorage.setItem('info', JSON.stringify(local));
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+
+  updateCommon(payload: any, id: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.updateCommon(payload, id).subscribe(
+        (response) => {
+          console.log('Update Common successfully.', response);
+          const local = JSON.parse(localStorage.getItem('info'));
+          local.feasibility_common_setting = response;
+          localStorage.setItem('info', JSON.stringify(local));
           resolve(response);
         },
         (err) => {

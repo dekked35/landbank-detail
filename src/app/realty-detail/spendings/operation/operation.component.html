@@ -1,0 +1,252 @@
+<div class="ui-g-12 ui-md-12 ui-lg-12 box-container">
+  <div class="ui-g-12 ui-md-12 ui-lg-12 detail">
+    <figcaption>
+      <span class="type">Cost Assumtions</span>
+    </figcaption>
+  </div>
+  <div class="ui-g-12 ui-md-3 ui-lg-2">
+    <div *ngFor="let item of house">
+      <div
+        class="select-box"
+        [ngClass]="{ active: clickBox === item.name }"
+        (click)="setClickBox(item.name)"
+        [ngStyle]="{'background-image': getUrl(item.name)}"
+      >
+        {{ item.name }}
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-md-9 ui-lg-10" *ngIf="clickBox === 'Operation'">
+    <h2 style="text-align: center; color: #085d84; margin-top: 0">Operation</h2>
+    <div class="ui-g-12 ui-md-12 ui-lg-12 font-w">
+      <span>Operation Expense</span>
+      <p class="lower-text"><mat-icon>info</mat-icon>ตารางสัดส่วนมาตราฐาน</p>
+    </div>
+    <div
+      class="ui-g-12 ui-md-12 ui-lg-12 pad-l font-w"
+      *ngFor="let item of expense"
+    >
+      <div class="ui-g-12 ui-md-2 ui-lg-2">
+        <span>{{ item.name }}</span>
+      </div>
+      <div
+        class="ui-g-12 ui-md-3 ui-lg-3 color-text-gray"
+        style="text-align: center"
+      >
+        <input
+          size="16"
+          pKeyFilter="int"
+          type="text"
+          pInputText
+          matInputCommified
+          [(ngModel)]="item.amount"
+        />
+        คน
+      </div>
+      <div class="ui-g-12 ui-md-2 ui-lg-2">
+        <span>เงินเดือน</span>
+      </div>
+      <div class="ui-g-12 ui-md-2 ui-lg-2 color-text-gray">
+        <input
+          size="16"
+          pKeyFilter="int"
+          type="text"
+          pInputText
+          matInputCommified
+          [(ngModel)]="item.price"
+        />
+        บาท
+      </div>
+      <div class="ui-g-12 ui-md-3 ui-lg-3 text-r">
+        รวม :
+        <span class="total-price">{{
+          +item.amount * +item.price | number
+        }}</span>
+        <span class="color-text-gray">บาท</span>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12 ui-lg-12 pad-l font-w">
+      <div class="color-text-gray">
+        <mat-icon class="click-add">control_point</mat-icon>
+        <span class="next-button">ระบุเอง</span>
+      </div>
+    </div>
+    <div
+      class="ui-g-12 ui-md-12 ui-lg-12 pad-l font-w"
+      *ngFor="let item of software"
+    >
+      <div class="ui-g-12 ui-md-7 ui-lg-7">
+        <span>{{ item.name }}</span>
+      </div>
+      <div class="ui-g-12 ui-md-2 ui-lg-2 color-text-gray">
+        <input
+          size="16"
+          pKeyFilter="int"
+          type="text"
+          pInputText
+          matInputCommified
+          [(ngModel)]="item.price"
+        />
+        บาท
+      </div>
+      <div class="ui-g-12 ui-md-3 ui-lg-3 text-r">
+        รวม :
+        <span class="total-price">{{ item.price | number }}</span>
+        <span class="color-text-gray">บาท</span>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-md-9 ui-lg-10" *ngIf="clickBox === 'Marketing'">
+    <h2 style="text-align: center; color: #085d84; margin-top: 0">Marketing</h2>
+    <ng-container *ngFor="let item of marketing">
+      <div class="ui-g-12 ui-md-12 ui-lg-12 font-w">
+        <span>{{ mapName(item.name) }}</span>
+      </div>
+      <div class="ui-g-12 ui-md-12 ui-lg-12 font-w">
+        <div class="ui-g-12 ui-md-3 ui-lg-3 pad-l">
+          <span>ยอดขายทั้งโครงการ</span>
+        </div>
+        <div
+          class="ui-g-12 ui-md-3 ui-lg-3 color-text-gray"
+          style="text-align: center"
+        >
+          <input
+            size="16"
+            pKeyFilter="int"
+            type="text"
+            pInputText
+            matInputCommified
+            [(ngModel)]="item.allSale"
+          />
+          บาท
+        </div>
+        <div class="ui-g-12 ui-md-3 ui-lg-2" style="text-align: right">
+          <span>ค่าใช้จ่าย</span>
+        </div>
+        <div
+          class="ui-g-12 ui-md-3 ui-lg-4 color-text-gray"
+          style="text-align: center"
+        >
+          <input
+            size="16"
+            pKeyFilter="int"
+            type="text"
+            pInputText
+            matInputCommified
+            [(ngModel)]="item.price"
+          />
+          บาท
+        </div>
+      </div>
+    </ng-container>
+    <div class="ui-g-12 ui-md-3 ui-lg-3 font-w">
+      <span>Marketing / เดือน</span>
+    </div>
+    <div
+      class="ui-g-12 ui-md-3 ui-lg-3 color-text-gray"
+      style="text-align: center"
+    >
+      <input
+        size="16"
+        pKeyFilter="int"
+        type="text"
+        pInputText
+        matInputCommified
+        [(ngModel)]="marketingPerMonth"
+      />
+      บาท
+    </div>
+  </div>
+  <div
+    class="ui-g-12 ui-md-9 ui-lg-10"
+    *ngIf="clickBox === 'สาธารณูปโภค/เดือน'"
+  >
+    <h2 style="text-align: center; color: #085d84; margin-top: 0">
+      สาธารณูปโภค/เดือน
+    </h2>
+    <div class="ui-g-12 ui-md-6 ui-lg-6 pd-l-5per">
+      <div class="product-item active_box">
+        <div class="product-item-content-noclick">
+          <img src="assets/images/electrical_supply_operation.jpg" class="product-image" />
+          <div class="text">
+            <span style="color: white">Electrical Supply</span>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-md-12 ui-lg-12 font-w">
+        <div class="ui-g-12 ui-md-4 ui-lg-4">ราคาประมาณ</div>
+        <div class="ui-g-12 ui-md-8 ui-lg-8 color-text-gray">
+          <input
+            size="4"
+            pKeyFilter="int"
+            type="text"
+            pInputText
+            matInputCommified
+            [(ngModel)]="electricPrice"
+            (change)="changeTotalElectric()"
+          />
+          บาท / เดือน
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          ราคาทั้งโครงการ :
+          <span class="total-price">{{ +electricPrice * month | number }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-6 ui-lg-6 pd-r-5per">
+      <div class="product-item active_box">
+        <div class="product-item-content-noclick">
+          <img src="assets/images/water_supply_operation.jpg" class="product-image" />
+          <div class="text">
+            <span style="color: white">Water Supply</span>
+          </div>
+        </div>
+      </div>
+      <div class="ui-g-12 ui-md-12 ui-lg-12 font-w">
+        <div class="ui-g-12 ui-md-4 ui-lg-4">ราคาประมาณ</div>
+        <div class="ui-g-12 ui-md-8 ui-lg-8 color-text-gray">
+          <input
+            size="4"
+            pKeyFilter="int"
+            type="text"
+            pInputText
+            matInputCommified
+            [(ngModel)]="waterPrice"
+            (change)="changeTotalWater()"
+          />
+          บาท / เดือน
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          ราคาทั้งโครงการ :
+          <span class="total-price">{{ +waterPrice * month | number }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12 ui-md-3 ui-lg-2"></div>
+  <div class="ui-g-12 ui-md-9 ui-lg-10 pad-l font-w">
+    <div class="ui-g-12 ui-md-12 ui-lg-12">
+      <div class="ui-g-12 ui-md-2 ui-lg-2">จำนวนเดือน :</div>
+      <div class="ui-g-12 ui-md-10 ui-lg-10 total-month">
+        {{ month }}<span>เดือน</span>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12 ui-lg-12">
+      <div class="ui-g-12 ui-md-3 ui-lg-3">รายจ่ายต่อเดือน :</div>
+      <div class="ui-g-12 ui-md-9 ui-lg-9 price-total">
+        {{ costTotal() | number }} <span>บาท</span>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12 ui-lg-12">
+      <div class="ui-g-12 ui-md-3 ui-lg-3">ค่าใช้จ่ายจนจบโครงการ :</div>
+      <div class="ui-g-12 ui-md-9 ui-lg-9 price-total">
+        {{ costTotalPerMonth() | number }} <span>บาท</span>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <button pButton type="button" class="button-click" (click)="save()">
+      บันทึกการปรับเปลี่ยน
+    </button>
+  </div>
+</div>

@@ -101,7 +101,24 @@ export class SpendingsComponent implements OnInit, OnDestroy {
   }
 
   onSummit(event) {
-    this.toggleEdit.emit(event);
+    const order = event.order;
+    const page = event.page;
+    if (page === "spending") {
+      this.typeProductDetail = this.getIndex(order);
+    } else {
+      this.toggleEdit.emit(event);
+    }
+  }
+
+  getIndex(index: number) {
+    switch (index) {
+      case 1:
+        return "commonArea";
+      case 2:
+        return "operation";
+      default:
+        return "houseType";
+    }
   }
   ngOnDestroy() {
     // this.subscriptionArea.unsubscribe();

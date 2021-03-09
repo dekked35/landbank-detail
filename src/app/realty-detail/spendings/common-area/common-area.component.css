@@ -51,17 +51,18 @@
 }
 
 .select-box {
-  border: 1px solid;
+  background-size: cover;
   padding: 13px;
   text-align: center;
-  background: antiquewhite;
-  font-size: 22px;
   color: white;
+  font-size: 22px;
   cursor: pointer;
+  border: 0;
+  opacity: 0.3;
 }
 
 .active {
-  background-color: black;
+  opacity: 1;
 }
 
 .ui-inputtext {
@@ -210,12 +211,13 @@ input {
 }
 
 .product-item .product-item-content-noclick img {
-  max-width: 100%;
   margin: auto;
+  width: 100%;
   border: 1px solid #085d84;
   border-radius: 12px;
   text-align: center;
   background: #085d84;
+  height: 35vh;
   overflow: hidden;
 }
 
@@ -286,4 +288,10 @@ input {
 
 .pd-r-5per {
   padding-right: 5%;
+}
+
+.total-price {
+  font-size: 18px;
+  color: orange;
+  margin: 0 10px;
 }

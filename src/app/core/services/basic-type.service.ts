@@ -6,11 +6,10 @@ import * as ENVIRONMENT from '../../../environments/environment';
 const ENV = ENVIRONMENT.environment;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BasicTypeService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getProperyArea(payload): Observable<any> {
     const url = ENV.FEASIBILITY_API + '/property/area';
@@ -42,9 +41,9 @@ export class BasicTypeService {
     return this.http.post(url, payload);
   }
 
-  getArea(): Observable<any> {
+  getArea(id): Observable<any> {
     // const id = localStorage.getItem('id')
-    const url = ENV.FEASIBILITY_API + '/feasibility_areas/2';
+    const url = ENV.FEASIBILITY_API + '/feasibility_areas/' + id;
     return this.http.get(url);
   }
 
@@ -58,4 +57,28 @@ export class BasicTypeService {
     return this.http.put(url, payload);
   }
 
+  getUserInfo(payload): Observable<any> {
+    const url = ENV.FEASIBILITY_API + '/feasibilities/' + payload;
+    return this.http.get(url);
+  }
+
+  insertOperation(payload): Observable<any> {
+    const url = ENV.FEASIBILITY_API + '/feasibility_operation_setting';
+    return this.http.post(url, payload);
+  }
+
+  updateOperation(payload, id): Observable<any> {
+    const url = ENV.FEASIBILITY_API + '/feasibility_operation_setting/' + id;
+    return this.http.put(url, payload);
+  }
+
+  insertCommon(payload): Observable<any> {
+    const url = ENV.FEASIBILITY_API + '/feasibility_common_setting';
+    return this.http.post(url, payload);
+  }
+
+  updateCommon(payload, id): Observable<any> {
+    const url = ENV.FEASIBILITY_API + '/feasibility_common_setting/' + id;
+    return this.http.put(url, payload);
+  }
 }

@@ -21,6 +21,8 @@ import { parse } from 'querystring';
 })
 export class AreaComponent implements OnInit {
   @Output() toggleEdit = new EventEmitter<any>();
+  currentProperty: any;
+  local: any;
   constructor(
     private store: Store<any>,
     private defaultsVariableService: DefaultsVariableService,
@@ -28,9 +30,12 @@ export class AreaComponent implements OnInit {
     private calculatorManagerService: CalculatorManagerService,
     private shemaManagerService: SchemaManagerService,
     private route: ActivatedRoute,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
   ) {
-    this.store.select(fromCore.getPage).subscribe((data) => {});
+    this.store.select(fromCore.getPage).subscribe((page) => {
+      this.currentProperty = page.page;
+      this.local = JSON.parse(localStorage.getItem('info'));
+    });
   }
   is_loading: boolean;
   is_loading_product: boolean;
@@ -87,8 +92,8 @@ export class AreaComponent implements OnInit {
   }
 
   async setInitialValue() {
-    const DB = await this.requestManagerService.getArea()
-    const default_old= this.shemaManagerService.getAreaSchema('village');
+    const DB = await this.requestManagerService.getArea(this.local.feasibility_area.id);
+    const default_old = this.shemaManagerService.getAreaSchema('village');
     this.areaData = DB;
     this.areaData.ratio_area = default_old.ratio_area;
     this.areaData.standardArea = default_old.standardArea;

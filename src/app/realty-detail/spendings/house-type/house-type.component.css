@@ -146,21 +146,11 @@ input {
     margin-left: 0;
   }
 
-  .detail-box-new{
+  .detail-box-new {
     padding: 0 10px;
   }
 }
 
-.button-click {
-  text-align: center;
-  width: 100%;
-  max-width: 350px;
-  border-radius: 30px;
-  vertical-align: middle;
-  font-size: 20px;
-  height: 50px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.disabled {
+  opacity: 0.1;
 }

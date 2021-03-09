@@ -39,7 +39,8 @@ import {NgxMaterialToolsModule} from 'ngx-material-tools';
 import {NumberCommaDirective} from './shared/number-comma.directive'
 import {MaterialModule} from './material.module';
 import { HouseTypeComponent } from './realty-detail/spendings/house-type/house-type.component';
-import { CommonAreaComponent } from './realty-detail/spendings/common-area/common-area.component'
+import { CommonAreaComponent } from './realty-detail/spendings/common-area/common-area.component';
+import { OperationComponent } from './realty-detail/spendings/operation/operation.component'
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { CommonAreaComponent } from './realty-detail/spendings/common-area/commo
     NumberCommaDirective,
     OrangeComponent,
     HouseTypeComponent,
-    CommonAreaComponent
+    CommonAreaComponent,
+    OperationComponent
   ],
   imports: [
     BrowserModule,

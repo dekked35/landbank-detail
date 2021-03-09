@@ -12,7 +12,7 @@
         (click)="changeType('houseType')"
         [ngClass]="{ active: typeProductDetail == 'houseType' }"
       >
-        <figure><img src="../../../assets/icons/checkup-list.svg" /></figure>
+        <figure><img src="../../../assets/images/house_type_top.jpg" /></figure>
         <figcaption>
           <span class="type">House Type</span>
           <p class="caption">รูปแบบบ้านและค่่าใช้จ่าย</p>
@@ -25,7 +25,7 @@
         (click)="changeType('commonArea')"
         [ngClass]="{ active: typeProductDetail == 'commonArea' }"
       >
-        <figure><img src="../../../assets/icons/checkup-list.svg" /></figure>
+        <figure><img src="../../../assets/images/common_area_top.jpg" /></figure>
         <figcaption>
           <span class="type">Common area</span>
           <p class="caption">ค่าใช่จ่ายส่วนกลางและอื่นๆ</p>
@@ -38,7 +38,7 @@
         (click)="changeType('operation')"
         [ngClass]="{ active: typeProductDetail == 'operation' }"
       >
-        <figure><img src="../../../assets/icons/checkup-list.svg" /></figure>
+        <figure><img src="../../../assets/images/operation_top.jpg" /></figure>
         <figcaption>
           <span class="type">Operation</span>
           <p class="caption">ค่าใช่จ่ายรายเดือนและอื่นๆ</p>
@@ -116,8 +116,11 @@
       </div>
     </div>
     <div *ngIf="typeProductDetail == 'commonArea'">
-      <app-common-area></app-common-area>
+      <app-common-area (toggleEdit)="onSummit($event)"></app-common-area>
     </div>
+  </div>
+  <div *ngIf="typeProductDetail == 'operation'">
+    <app-operation (toggleEdit)="onSummit($event)"></app-operation>
   </div>
 </div>
 <div *ngIf="typeProductDetail == 'houseType'">

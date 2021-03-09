@@ -4627,4 +4627,20 @@ body .competitor > .ui-button {
 .ui-carousel-items-container .ui-carousel-item {
   overflow-x: hidden;
 }
+
+.button-click {
+  text-align: center !important;
+    width: 100%;
+    max-width: 350px;
+    border-radius: 30px !important;
+    vertical-align: middle;
+    font-size: 20px !important;
+    height: 50px;
+    margin: 0 auto !important;
+    display: flex !important;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
 /* Add your customizations of theme here */

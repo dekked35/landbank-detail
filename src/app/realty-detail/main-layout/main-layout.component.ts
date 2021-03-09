@@ -128,8 +128,8 @@ export class MainLayoutComponent implements OnInit {
   }
 
   onToggleEdit(event: any) {
-    this.selectIndex = +event.next;
-    this.selectedWindow = this.changeValueToWord(+event.next);
-    console.log(this.selectIndex,this.selectedWindow)
+    const page = event.page;
+    this.selectedWindow = page;
+    this.selectIndex = this.changeWordToValue(page);
   }
 }

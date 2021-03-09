@@ -55,24 +55,22 @@ export class TopBarComponent implements OnInit {
 
   currentProperty: string;
 
-  selectedCity1: { name: 'โรงแรม' };
 
   showExpension = false;
 
-  ngOnInit() {
+  async ngOnInit() {
+    const id = 7;
+    const info = await this.requestManagerService.getUserInfo(id);
     localStorage.setItem('id', '7');
   }
 
-  selectProperty(propertyType: string) {
-    if (this.currentProperty !== propertyType) {
+  selectProperty(propertyType: any) {
+    if (this.currentProperty !== propertyType.name) {
       this.store.dispatch(new pageAction.PageAction(propertyType));
     }
   }
 
-  selectPropertyDropdown() {
-    console.log(this.selectedCity1);
-  }
-  toggleProperty(propertyType: string) {
+  toggleProperty(propertyType: any) {
     localStorage.removeItem('page');
     this.store.dispatch(new pageAction.PageAction(propertyType));
 

@@ -1,4 +1,4 @@
-<div style="padding: 10px 5px 10px 50px;">
+<div style="padding: 10px 5px 10px 50px">
   <h1 class="header-h1">FEASIBILITY DETAIL</h1>
 </div>
 <div class="ui-g ctn_backoffice">
@@ -6,31 +6,31 @@
     <ul>
       <li
         [ngClass]="{ active: currentProperty == 'village' }"
-        (click)="selectProperty('village')"
+        (click)="selectProperty({ name: 'village', id: 1 })"
       >
         หมู่บ้านจัดสรร <i class="pi pi-angle-down" aria-hidden="true"></i>
       </li>
       <li
         [ngClass]="{ active: currentProperty == 'townhome' }"
-        (click)="selectProperty('townhome')"
+        (click)="selectProperty({ name: 'townhome', id: 2 })"
       >
         อาคารพาณิชย์ <i class="pi pi-angle-down" aria-hidden="true"></i>
       </li>
       <li
         [ngClass]="{ active: currentProperty == 'condo' }"
-        (click)="selectProperty('condo')"
+        (click)="selectProperty({ name: 'condo', id: 3 })"
       >
         คอนโด <i class="pi pi-angle-down" aria-hidden="true"></i>
       </li>
       <li
         [ngClass]="{ active: currentProperty == 'hotel' }"
-        (click)="selectProperty('hotel')"
+        (click)="selectProperty({ name: 'hotel', id: 4 })"
       >
         โรงแรม <i class="pi pi-angle-down" aria-hidden="true"></i>
       </li>
       <li
         [ngClass]="{ active: currentProperty == 'communityMall' }"
-        (click)="selectProperty('communityMall')"
+        (click)="selectProperty({ name: 'communityMall', id: 5 })"
       >
         Community Mall <i class="pi pi-angle-down" aria-hidden="true"></i>
       </li>
@@ -41,35 +41,35 @@
       <li
         [ngClass]="{ active: currentProperty == 'village' }"
         [ngStyle]="toggleNgStyle('village')"
-        (click)="toggleProperty('village')"
+        (click)="toggleProperty({ name: 'village', id: 1 })"
       >
         หมู่บ้านจัดสรร <i class="pi pi-angle-down" aria-hidden="true"></i>
       </li>
       <li
         [ngClass]="{ active: currentProperty == 'townhome' }"
         [ngStyle]="toggleNgStyle('townhome')"
-        (click)="toggleProperty('townhome')"
+        (click)="toggleProperty({ name: 'townhome', id: 2 })"
       >
         อาคารพาณิชย์ <i class="pi pi-angle-down" aria-hidden="true"></i>
       </li>
       <li
         [ngClass]="{ active: currentProperty == 'condo' }"
         [ngStyle]="toggleNgStyle('condo')"
-        (click)="toggleProperty('condo')"
+        (click)="toggleProperty({ name: 'condo', id: 3 })"
       >
         คอนโด <i class="pi pi-angle-down" aria-hidden="true"></i>
       </li>
       <li
         [ngClass]="{ active: currentProperty == 'hotel' }"
         [ngStyle]="toggleNgStyle('hotel')"
-        (click)="toggleProperty('hotel')"
+        (click)="toggleProperty({ name: 'hotel', id: 4 })"
       >
         โรงแรม <i class="pi pi-angle-down" aria-hidden="true"></i>
       </li>
       <li
         [ngClass]="{ active: currentProperty == 'communityMall' }"
         [ngStyle]="toggleNgStyle('communityMall')"
-        (click)="toggleProperty('communityMall')"
+        (click)="toggleProperty({ name: 'communityMall', id: 5 })"
       >
         Community Mall <i class="pi pi-angle-down" aria-hidden="true"></i>
       </li>
