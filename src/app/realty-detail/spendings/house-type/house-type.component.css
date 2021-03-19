@@ -131,8 +131,7 @@ input {
 }
 
 .non-input {
-  text-align: end;
-  padding-right: 40px;
+  text-align: center;
 }
 
 .non-input-font {

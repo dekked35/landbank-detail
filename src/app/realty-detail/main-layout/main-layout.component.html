@@ -3,10 +3,12 @@
     <div class="ui-g-12 ui-md-12 ui-lg-6">
       <span class="name-project"> <b>ชื่อโครงการ</b></span>
       <p-dropdown
-        [options]="colorsTown"
-        [(ngModel)]="selectName"
+        [options]="projectName"
+        [(ngModel)]="selectProject"
         placeholder="Select a City"
         optionLabel="name"
+        dataKey="name"
+        (onChange)="onChangeDropdown($event)"
       >
       </p-dropdown>
     </div>

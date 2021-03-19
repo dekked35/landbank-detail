@@ -5,30 +5,30 @@ import {
   SimpleChanges,
   Output,
   EventEmitter,
-} from "@angular/core";
-import { BasicTypeService } from "../../core/services/basic-type.service";
-import { Store } from "@ngrx/store";
+} from '@angular/core';
+import { BasicTypeService } from '../../core/services/basic-type.service';
+import { Store } from '@ngrx/store';
 
-import { SchemaManagerService } from "../../core/services/schema-manager.service";
-import { RequestManagerService } from "../../core/services/request-manager.service";
-import { CalculatorManagerService } from "../../core/services/calculator-manager.service";
+import { SchemaManagerService } from '../../core/services/schema-manager.service';
+import { RequestManagerService } from '../../core/services/request-manager.service';
+import { CalculatorManagerService } from '../../core/services/calculator-manager.service';
 
-import * as pageAction from "../../core/actions/page.actions";
-import * as areaAction from "../../core/actions/area.actions";
-import * as productAction from "../../core/actions/product.actions";
-import * as spendingsAction from "../../core/actions/spendings.actions";
-import * as profitAction from "../../core/actions/profit.actions";
-import * as implicitsCostAction from "../../core/actions/implicit-costs.actions";
-import * as rateReturnAction from "../../core/actions/rate-return.actions";
+import * as pageAction from '../../core/actions/page.actions';
+import * as areaAction from '../../core/actions/area.actions';
+import * as productAction from '../../core/actions/product.actions';
+import * as spendingsAction from '../../core/actions/spendings.actions';
+import * as profitAction from '../../core/actions/profit.actions';
+import * as implicitsCostAction from '../../core/actions/implicit-costs.actions';
+import * as rateReturnAction from '../../core/actions/rate-return.actions';
 
-import * as fromCore from "../../core/reducers";
+import * as fromCore from '../../core/reducers';
 
-import * as moment from "moment";
+import * as moment from 'moment';
 
 @Component({
-  selector: "app-spendings",
-  templateUrl: "./spendings.component.html",
-  styleUrls: ["./spendings.component.css"],
+  selector: 'app-spendings',
+  templateUrl: './spendings.component.html',
+  styleUrls: ['./spendings.component.css'],
 })
 export class SpendingsComponent implements OnInit, OnDestroy {
   @Output() toggleEdit = new EventEmitter<any>();
@@ -59,36 +59,10 @@ export class SpendingsComponent implements OnInit, OnDestroy {
   subscriptionProfit: any;
   subscriptionRateReturn: any;
 
-  typeProductDetail = "houseType";
+  typeProductDetail = 'houseType';
 
   ngOnInit() {
-    this.store.select(fromCore.getArea).subscribe((area) => {
-      this.areaData = area.payload;
-    });
 
-    this.subscriptionSpending = this.store
-      .select(fromCore.getSpendings)
-      .subscribe((spendings) => {
-        this.spendingsData = this.parseObject(spendings.payload);
-      });
-
-    this.subscriptionImplicitsCost = this.store
-      .select(fromCore.getImplicitCosts)
-      .subscribe((implicistCost) => {
-        this.implicitCostData = this.parseObject(implicistCost.payload);
-      });
-
-    this.subscriptionRateReturn = this.store
-      .select(fromCore.getRateReturn)
-      .subscribe((rateReturn) => {
-        this.rateReturnData = this.parseObject(rateReturn.payload);
-      });
-
-    this.subscriptionProduct = this.store
-      .select(fromCore.getProduct)
-      .subscribe((product) => {
-        this.productData = product.payload;
-      });
   }
 
   parseObject(data: any) {
@@ -97,13 +71,12 @@ export class SpendingsComponent implements OnInit, OnDestroy {
 
   changeType(type: string) {
     this.typeProductDetail = type;
-    console.log(this.typeProductDetail);
   }
 
   onSummit(event) {
     const order = event.order;
     const page = event.page;
-    if (page === "spending") {
+    if (page === 'spending') {
       this.typeProductDetail = this.getIndex(order);
     } else {
       this.toggleEdit.emit(event);
@@ -113,11 +86,11 @@ export class SpendingsComponent implements OnInit, OnDestroy {
   getIndex(index: number) {
     switch (index) {
       case 1:
-        return "commonArea";
+        return 'commonArea';
       case 2:
-        return "operation";
+        return 'operation';
       default:
-        return "houseType";
+        return 'houseType';
     }
   }
   ngOnDestroy() {

@@ -10,7 +10,7 @@
         class="select-box"
         [ngClass]="{ active: clickBox === item.name }"
         (click)="setClickBox(item.name)"
-        [ngStyle]="{'background-image': getUrl(item.name)}"
+        [ngStyle]="{ 'background-image': getUrl(item.name) }"
       >
         {{ item.name }}
       </div>
@@ -24,10 +24,19 @@
     </div>
     <div
       class="ui-g-12 ui-md-12 ui-lg-12 pad-l font-w"
-      *ngFor="let item of expense"
+      *ngFor="let item of expense; let i = index"
     >
-      <div class="ui-g-12 ui-md-2 ui-lg-2">
+      <div class="ui-g-12 ui-md-2 ui-lg-2" *ngIf="!item.showBox" >
         <span>{{ item.name }}</span>
+      </div>
+      <div class="ui-g-12 ui-md-2 ui-lg-2 text-input-box" *ngIf="item.showBox" >
+        <mat-icon class="click-delete" (click)="deleteExpense(i)">close</mat-icon>
+        <input
+          size="16"
+          type="text"
+          pInputText
+          [(ngModel)]="item.name"
+        />
       </div>
       <div
         class="ui-g-12 ui-md-3 ui-lg-3 color-text-gray"
@@ -67,7 +76,7 @@
     </div>
     <div class="ui-g-12 ui-md-12 ui-lg-12 pad-l font-w">
       <div class="color-text-gray">
-        <mat-icon class="click-add">control_point</mat-icon>
+        <mat-icon class="click-add" (click)="addMoreExpense()">control_point</mat-icon>
         <span class="next-button">ระบุเอง</span>
       </div>
     </div>
@@ -117,6 +126,7 @@
             pInputText
             matInputCommified
             [(ngModel)]="item.allSale"
+            (change)="op_mk_changeValue(item.name)"
           />
           บาท
         </div>
@@ -127,14 +137,7 @@
           class="ui-g-12 ui-md-3 ui-lg-4 color-text-gray"
           style="text-align: center"
         >
-          <input
-            size="16"
-            pKeyFilter="int"
-            type="text"
-            pInputText
-            matInputCommified
-            [(ngModel)]="item.price"
-          />
+          <span class="total-month">{{ item.price | number}}</span>
           บาท
         </div>
       </div>
@@ -167,7 +170,10 @@
     <div class="ui-g-12 ui-md-6 ui-lg-6 pd-l-5per">
       <div class="product-item active_box">
         <div class="product-item-content-noclick">
-          <img src="assets/images/electrical_supply_operation.jpg" class="product-image" />
+          <img
+            src="assets/images/electrical_supply_operation.jpg"
+            class="product-image"
+          />
           <div class="text">
             <span style="color: white">Electrical Supply</span>
           </div>
@@ -196,7 +202,10 @@
     <div class="ui-g-12 ui-md-6 ui-lg-6 pd-r-5per">
       <div class="product-item active_box">
         <div class="product-item-content-noclick">
-          <img src="assets/images/water_supply_operation.jpg" class="product-image" />
+          <img
+            src="assets/images/water_supply_operation.jpg"
+            class="product-image"
+          />
           <div class="text">
             <span style="color: white">Water Supply</span>
           </div>
@@ -234,13 +243,13 @@
     <div class="ui-g-12 ui-md-12 ui-lg-12">
       <div class="ui-g-12 ui-md-3 ui-lg-3">รายจ่ายต่อเดือน :</div>
       <div class="ui-g-12 ui-md-9 ui-lg-9 price-total">
-        {{ costTotal() | number }} <span>บาท</span>
+        {{ costTotal(clickBox) | number }} <span>บาท</span>
       </div>
     </div>
     <div class="ui-g-12 ui-md-12 ui-lg-12">
       <div class="ui-g-12 ui-md-3 ui-lg-3">ค่าใช้จ่ายจนจบโครงการ :</div>
       <div class="ui-g-12 ui-md-9 ui-lg-9 price-total">
-        {{ costTotalPerMonth() | number }} <span>บาท</span>
+        {{ costTotalPerMonth(clickBox) | number }} <span>บาท</span>
       </div>
     </div>
   </div>

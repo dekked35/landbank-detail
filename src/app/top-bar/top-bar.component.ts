@@ -5,6 +5,7 @@ import { BasicTypeService } from '../core/services/basic-type.service';
 import { RequestManagerService } from '../core/services/request-manager.service';
 
 import * as pageAction from '../core/actions/page.actions';
+import * as infoAction from '../core/actions/info.actions';
 import * as areaAction from '../core/actions/area.actions';
 import * as productAction from '../core/actions/product.actions';
 import * as spendingsAction from '../core/actions/spendings.actions';
@@ -59,9 +60,6 @@ export class TopBarComponent implements OnInit {
   showExpension = false;
 
   async ngOnInit() {
-    const id = 7;
-    const info = await this.requestManagerService.getUserInfo(id);
-    localStorage.setItem('id', '7');
   }
 
   selectProperty(propertyType: any) {

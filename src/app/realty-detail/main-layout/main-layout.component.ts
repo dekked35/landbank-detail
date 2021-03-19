@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromCore from '../../core/reducers';
+import * as infoAction from '../../core/actions/info.actions';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStep, MatStepper } from '@angular/material/stepper';
+import { RequestManagerService } from '../../core/services/request-manager.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -11,8 +13,8 @@ import { MatStep, MatStepper } from '@angular/material/stepper';
 })
 export class MainLayoutComponent implements OnInit {
   public currentProperty = '';
-  public colorsTown = [];
-  public selectName = { name: '' };
+  public projectName = [];
+  public selectProject = { name: '' };
   selectedWindow: string;
   selectIndex: number;
   firstFormGroup: FormGroup;
@@ -20,6 +22,8 @@ export class MainLayoutComponent implements OnInit {
   thirdFormGroup: FormGroup;
   forthFormGroup: FormGroup;
   fifthFormGroup: FormGroup;
+  public allFeas: any;
+  currentInfo: any;
 
   showExpension = false;
 
@@ -29,15 +33,25 @@ export class MainLayoutComponent implements OnInit {
   @ViewChild('three', { static: false }) three: MatStep;
   @ViewChild('four', { static: false }) four: MatStep;
 
-  constructor(private store: Store<any>, private _formBuilder: FormBuilder) {
+  constructor(
+    private store: Store<any>,
+    private _formBuilder: FormBuilder,
+    private requestManagerService: RequestManagerService
+  ) {
     this.store.select(fromCore.getPage).subscribe((page) => {
       this.currentProperty = page.page;
     });
+    this.store.select(fromCore.getInfo).subscribe((info) => {
+      if (info) {
+        this.currentInfo = info.info;
+      }
+    });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.setInitial();
     this.selectedWindow = 'area';
-    this.colorsTown = [
+    this.projectName = [
       { name: 'SOHO Bangkok Ratchada' },
       { name: 'โครงการหมู่บ้านจัดสรรแสรสิริ - ลาดปลาเค้า 48' },
     ];
@@ -56,6 +70,22 @@ export class MainLayoutComponent implements OnInit {
     this.fifthFormGroup = this._formBuilder.group({
       setNext: ['true', Validators.required],
     });
+    this.selectProject.name = 'โครงการหมู่บ้านจัดสรรแสรสิริ - ลาดปลาเค้า 48';
+  }
+
+  async setInitial() {
+    this.allFeas = await this.requestManagerService.requestAllFeasibilities();
+    // tslint:disable-next-line: max-line-length
+    const startValue = this.allFeas.find(
+      (item) =>
+        item.create_by === 'kong' &&
+        item.project.project_name ===
+          'โครงการหมู่บ้านจัดสรรแสรสิริ - ลาดปลาเค้า 48'
+    );
+    localStorage.setItem('id', startValue.id);
+    const info = await this.requestManagerService.getSpendingInfo(startValue.id);
+    localStorage.setItem('houseType', JSON.stringify(info));
+    this.store.dispatch(new infoAction.InfoAction(startValue));
   }
 
   onChange(value) {
@@ -131,5 +161,18 @@ export class MainLayoutComponent implements OnInit {
     const page = event.page;
     this.selectedWindow = page;
     this.selectIndex = this.changeWordToValue(page);
+  }
+
+  async onChangeDropdown(event: any) {
+    // tslint:disable-next-line: max-line-length
+    const startValue = this.allFeas.find(
+      (item) =>
+        item.create_by === 'kong' &&
+        item.project.project_name === event.value.name
+    );
+    localStorage.setItem('id', startValue.id);
+    const info = await this.requestManagerService.getSpendingInfo(startValue.id);
+    localStorage.setItem('houseType', JSON.stringify(info));
+    this.store.dispatch(new infoAction.InfoAction(startValue));
   }
 }

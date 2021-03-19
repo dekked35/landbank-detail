@@ -13,6 +13,7 @@ import * as fromSpendings from './spendings.reducer';
 import * as fromImplicitCosts from './implicit-costs.reducer';
 import * as fromProfit from './profit.reducer';
 import * as fromRateReturn from './rate-return.reducer';
+import * as fromInfo from './info.reducer';
 
 export interface CoreState {
   page: fromPage.State;
@@ -22,6 +23,7 @@ export interface CoreState {
   implicitCosts: fromImplicitCosts.State;
   profit: fromProfit.State;
   rateReturn: fromRateReturn.State;
+  info: fromInfo.State;
 }
 
 export const coreReducers: ActionReducerMap<CoreState> = {
@@ -31,7 +33,8 @@ export const coreReducers: ActionReducerMap<CoreState> = {
   spendings: fromSpendings.reducer,
   implicitCosts: fromImplicitCosts.reducer,
   profit: fromProfit.reducer,
-  rateReturn: fromRateReturn.reducer
+  rateReturn: fromRateReturn.reducer,
+  info: fromInfo.reducer,
 };
 
 
@@ -50,4 +53,6 @@ export const getSpendings = (state: CoreState) => state.spendings
 export const getProfit = (state: CoreState) => state.profit
 
 export const getRateReturn = (state: CoreState) => state.rateReturn
+
+export const getInfo = (state: CoreState) => state.info
 

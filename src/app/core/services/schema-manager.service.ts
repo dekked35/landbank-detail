@@ -5,6 +5,7 @@ import * as townhomeSchema from '../../core/schema/basic-type/townhome';
 import * as condoSchema from '../../core/schema/basic-type/condo';
 import * as hotelSchema from '../../core/schema/basic-type/hotel';
 import * as communityMallSchema from '../../core/schema/basic-type/communityMall';
+import * as feasDetail from '../../core/schema/basic-type/feasDetail';
 
 const DEFAULT_SCHEMA = {
   "village": villageSchema.village,
@@ -12,6 +13,7 @@ const DEFAULT_SCHEMA = {
   "condo": condoSchema.condo,
   "hotel": hotelSchema.hotel,
   "communityMall": communityMallSchema.communityMall,
+  "feasDetail": feasDetail.feasDetail
 }
 
 @Injectable({
@@ -26,6 +28,10 @@ export class SchemaManagerService {
 
   getAreaSchema(propertyType: string) {
     return this.parseObject(DEFAULT_SCHEMA[propertyType]['area']);
+  }
+
+  getCommonArea() {
+    return this.parseObject(DEFAULT_SCHEMA['feasDetail']);
   }
 
   getProductSchema(propertyType: string) {

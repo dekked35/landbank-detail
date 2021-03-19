@@ -9,7 +9,7 @@
       <div
         class="select-box"
         [ngClass]="{ active: clickBox === item.name }"
-        [ngStyle]="{'background-image': getUrl(item.name)}"
+        [ngStyle]="{ 'background-image': getUrl(item.name) }"
         (click)="setClickBox(item.name)"
       >
         {{ item.name }}
@@ -32,7 +32,7 @@
           type="text"
           pInputText
           matInputCommified
-          [(ngModel)]="landCost.pricePerRai"
+          [(ngModel)]="landCost.lc_price_per_rai"
           (change)="convertToWa()"
         />
         บาท
@@ -41,7 +41,7 @@
         <span>ราคาต่อตารางวา</span>
       </div>
       <div class="ui-g-12 ui-md-3 ui-lg-3">
-        <span class="total-price">{{landCost.pricePerWa}}</span>
+        <span class="total-price">{{ landCost.pricePerWa }}</span>
         บาท
       </div>
     </div>
@@ -50,7 +50,7 @@
     </div>
     <div class="ui-g-12 ui-md-12 ui-lg-12 pad-l font-w">
       <div class="ui-g-12 ui-md-3 ui-lg-3">
-        <span>ระยะความลึกในการถม / เมตร</span>
+        <span>ระยะความลึกในการถม</span>
       </div>
       <div class="ui-g-12 ui-md-3 ui-lg-3">
         <input
@@ -61,23 +61,49 @@
           matInputCommified
           [(ngModel)]="landFill.lengthForFillPerMeter"
         />
-        บาท
+        เมตร
+      </div>
+      <div class="ui-g-12 ui-md-6 ui-lg-6">
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          <span>ขนาดพื้นที่ที่ต้องการถม</span>
+        </div>
+        <div class="ui-g-12 ui-md-12 ui-lg-12">
+          <div class="ui-g-12 ui-md-12 ui-lg-4 mini">
+            ไร่
+            <input
+              size="16"
+              pKeyFilter="int"
+              type="text"
+              pInputText
+              matInputCommified
+              [(ngModel)]="areaForFill.rai"
+            />
+          </div>
+          <div class="ui-g-12 ui-md-12 ui-lg-4 mini">
+            งาน
+            <input
+              size="16"
+              pKeyFilter="int"
+              type="text"
+              pInputText
+              matInputCommified
+              [(ngModel)]="areaForFill.ngan"
+            />
+          </div>
+          <div class="ui-g-12 ui-md-12 ui-lg-4 mini">
+            วา<input
+              size="16"
+              pKeyFilter="int"
+              type="text"
+              pInputText
+              matInputCommified
+              [(ngModel)]="areaForFill.wa"
+            />
+          </div>
+        </div>
       </div>
       <div class="ui-g-12 ui-md-3 ui-lg-3">
-        <span>ขนาดพื้นที่ที่ต้องการถม</span>
-      </div>
-      <div class="ui-g-12 ui-md-3 ui-lg-3">
-        <input
-          size="16"
-          pKeyFilter="int"
-          type="text"
-          pInputText
-          matInputCommified
-          [(ngModel)]="landFill.area"
-        />
-      </div>
-      <div class="ui-g-12 ui-md-3 ui-lg-3">
-        <span>ราคาในระบบ/1ไร่</span>
+        <span>ราคาในระบบ / 1ไร่</span>
       </div>
       <div class="ui-g-12 ui-md-3 ui-lg-3">
         <input
@@ -90,32 +116,20 @@
         />
         บาท
       </div>
-      <div class="ui-g-12 ui-md-3 ui-lg-3">
-        <span>ปริมาณดินที่ต้องใช้</span>
-      </div>
-      <div class="ui-g-12 ui-md-3 ui-lg-3">
-        <input
-          size="16"
-          pKeyFilter="int"
-          type="text"
-          pInputText
-          matInputCommified
-          [(ngModel)]="landFill.areaForFill"
-        />
-        คิว
+      <div class="ui-g-12 ui-md-6 ui-lg-">
+        <div class="ui-g-12 ui-md-6 ui-lg-6">
+          <span>ปริมาณดินที่ต้องใช้</span>
+        </div>
+        <div class="ui-g-12 ui-md-6 ui-lg-6">
+          <span class="total-price">{{ calAreaForFill() | number }}</span>
+          คิว
+        </div>
       </div>
       <div class="ui-g-12 ui-md-3 ui-lg-3">
         <span>ค่าใช้จ่ายในการถม</span>
       </div>
       <div class="ui-g-12 ui-md-3 ui-lg-3">
-        <input
-          size="16"
-          pKeyFilter="int"
-          type="text"
-          pInputText
-          matInputCommified
-          [(ngModel)]="landFill.priceForFill"
-        />
+        <span class="total-price">{{ lc_fill_costFun() | number }}</span>
         บาท
       </div>
     </div>
@@ -133,8 +147,8 @@
     <div class="ui-g-12 ui-md-12 ui-lg-12">
       <p-carousel
         [value]="gates"
-        [numVisible]="5"
-        [numScroll]="3"
+        [numVisible]="4"
+        [numScroll]="2"
         [circular]="false"
         [responsiveOptions]="responsiveOptions"
       >
@@ -147,12 +161,14 @@
             <div class="product-item-content">
               <mat-icon class="icon-down">check_circle_outline</mat-icon>
               <img
-                src="assets/images/door.jpg"
-                [alt]="product.name"
+                src="{{ product.image_url }}"
+                [alt]="product.gate_type_name"
                 class="product-image"
               />
               <div class="text">
-                <span style="font-size: 10px">{{ product.name }}</span>
+                <span style="font-size: 10px">{{
+                  product.gate_type_name
+                }}</span>
               </div>
             </div>
           </div>
@@ -163,20 +179,33 @@
               type="text"
               pInputText
               matInputCommified
-              [(ngModel)]="product.price"
+              [(ngModel)]="product.default_price"
             />
           </div>
         </ng-template>
       </p-carousel>
     </div>
-    <div class="ui-g-12 ui-md-12 ui-lg-12 font-w">
+    <div class="ui-g-6 ui-md-6 ui-lg-6 font-w">
       <span>Fence <span style="color: gray">(บาท/เมตร)</span></span>
+    </div>
+    <div class="ui-g-6 ui-md-6 ui-lg-6 font-w">
+      <div class="fence-style">
+        <span>ความยาวรอบโครงการ</span>
+        <input
+              size="16"
+              pKeyFilter="int"
+              type="text"
+              pInputText
+              matInputCommified
+              [(ngModel)]="project_cycle_length"
+            />เมตร
+      </div>
     </div>
     <div class="ui-g-12 ui-md-12 ui-lg-12">
       <p-carousel
         [value]="fences"
-        [numVisible]="5"
-        [numScroll]="3"
+        [numVisible]="4"
+        [numScroll]="2"
         [circular]="false"
         [responsiveOptions]="responsiveOptions"
       >
@@ -189,13 +218,13 @@
             <div class="product-item-content">
               <mat-icon class="icon-down">check_circle_outline</mat-icon>
               <img
-                src="assets/images/door.jpg"
-                [alt]="product.name"
+                src="{{ product.image_url }}"
+                [alt]="product.fence_type_name"
                 class="product-image"
               />
               <div>
                 <span style="color: white; font-size: 10px">{{
-                  product.name
+                  product.fence_type_name
                 }}</span>
               </div>
             </div>
@@ -207,7 +236,7 @@
               type="text"
               pInputText
               matInputCommified
-              [(ngModel)]="product.price"
+              [(ngModel)]="product.default_price"
             />
           </div>
         </ng-template>
@@ -219,6 +248,7 @@
       Road and Green Area
     </h2>
     <p>Road / Foot Path / Drainage / Manhole</p>
+    <div class="ui-g-12 ui-md-12 ui-lg-12 pad-l">ถนนหลัก</div>
     <div class="ui-g-12 ui-md-6 ui-lg-6 pad-l">
       <div class="ui-g-12 ui-md-6 ui-lg-6">ขนาดที่วัดจริง</div>
       <div class="ui-g-12 ui-md-6 ui-lg-6 for-road">
@@ -228,22 +258,17 @@
           type="text"
           pInputText
           matInputCommified
-          [(ngModel)]="roadAndGreen.realSize"
+          [(ngModel)]="roadAndGreen.primaryRoad.realSize"
         />
         ตารางเมตร
       </div>
       <div class="ui-g-12 ui-md-6 ui-lg-6">
-        ขนาดโดยประมาณ 30% ของที่ดินทั้งหมด
+        ขนาดโดยประมาณ 5% ของที่ดินทั้งหมด
       </div>
       <div class="ui-g-12 ui-md-6 ui-lg-6 for-road">
-        <input
-          size="12"
-          pKeyFilter="int"
-          type="text"
-          pInputText
-          matInputCommified
-          [(ngModel)]="roadAndGreen.thirtyPerAllArea"
-        />
+        <span class="total-price">{{
+          (+dumpLandArea * 5) / 100 | number
+        }}</span>
         ตารางเมตร
       </div>
     </div>
@@ -256,7 +281,7 @@
           type="text"
           pInputText
           matInputCommified
-          [(ngModel)]="roadAndGreen.roadWidth"
+          [(ngModel)]="roadAndGreen.primaryRoad.roadWidth"
         />
         เมตร
       </div>
@@ -268,7 +293,57 @@
           type="text"
           pInputText
           matInputCommified
-          [(ngModel)]="roadAndGreen.pricePerMeter"
+          [(ngModel)]="roadAndGreen.primaryRoad.pricePerMeter"
+        />
+        บาท
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12 ui-lg-12 pad-l">ถนนรอง</div>
+    <div class="ui-g-12 ui-md-6 ui-lg-6 pad-l">
+      <div class="ui-g-12 ui-md-6 ui-lg-6">ขนาดที่วัดจริง</div>
+      <div class="ui-g-12 ui-md-6 ui-lg-6 for-road">
+        <input
+          size="12"
+          pKeyFilter="int"
+          type="text"
+          pInputText
+          matInputCommified
+          [(ngModel)]="roadAndGreen.secondaryRoad.realSize"
+        />
+        ตารางเมตร
+      </div>
+      <div class="ui-g-12 ui-md-6 ui-lg-6">
+        ขนาดโดยประมาณ 25% ของที่ดินทั้งหมด
+      </div>
+      <div class="ui-g-12 ui-md-6 ui-lg-6 for-road">
+        <span class="total-price">{{
+          (+dumpLandArea * 25) / 100 | number
+        }}</span>
+        ตารางเมตร
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-6 ui-lg-6 pad-l">
+      <div class="ui-g-12 ui-md-6 ui-lg-6">ถนนกว้าง</div>
+      <div class="ui-g-12 ui-md-6 ui-lg-6 for-road">
+        <input
+          size="12"
+          pKeyFilter="int"
+          type="text"
+          pInputText
+          matInputCommified
+          [(ngModel)]="roadAndGreen.secondaryRoad.roadWidth"
+        />
+        เมตร
+      </div>
+      <div class="ui-g-12 ui-md-6 ui-lg-6">ค่าใช้จ่าย / ตารางเมตร</div>
+      <div class="ui-g-12 ui-md-6 ui-lg-6 for-road">
+        <input
+          size="12"
+          pKeyFilter="int"
+          type="text"
+          pInputText
+          matInputCommified
+          [(ngModel)]="roadAndGreen.secondaryRoad.pricePerMeter"
         />
         บาท
       </div>
@@ -305,14 +380,9 @@
       </div>
       <div class="ui-g-12 ui-md-2 ui-lg-2">ค่าใช้จ่าย</div>
       <div class="ui-g-12 ui-md-2 ui-lg-2">
-        <input
-          size="12"
-          pKeyFilter="int"
-          type="text"
-          pInputText
-          matInputCommified
-          [(ngModel)]="item.price"
-        />
+        <span class="total-price">{{
+          +item.area * +item.pricePerUnit | number
+        }}</span>
         บาท
       </div>
     </div>
@@ -323,14 +393,9 @@
           ตามหลักกฏหมาย 5% ของพื้นที่ทั้งหมด
         </div>
         <div class="ui-g-12 ui-md-6 ui-lg-6 for-road">
-          <input
-            size="12"
-            pKeyFilter="int"
-            type="text"
-            pInputText
-            matInputCommified
-            [(ngModel)]="roadAndGreen.realSizeGreen"
-          />
+          <span class="total-price">{{
+            (+dumpLandArea * 5) / 100 | number
+          }}</span>
           ตารางเมตร
         </div>
       </div>
@@ -345,13 +410,17 @@
             matInputCommified
             [(ngModel)]="roadAndGreen.pricePerMeterGreen"
           />
-          บาท/ตารางเมตร
+          บาท/ตร.ม.
         </div>
       </div>
       <div class="ui-g-12 ui-md-12 ui-lg-12">
         <div class="ui-g-12 ui-md-6 ui-lg-6">ราคาทั้งหมด</div>
         <div class="ui-g-12 ui-md-6 ui-lg-6 for-road">
-          100,000 บาท/ตารางเมตร
+          <span class="total-price">{{
+            +roadAndGreen.realAreaGreen * +roadAndGreen.pricePerMeterGreen
+              | number
+          }}</span>
+          บาท/ตร.ม.
         </div>
       </div>
     </div>
@@ -381,7 +450,7 @@
             matInputCommified
             [(ngModel)]="roadAndGreen.standardPriceGreen"
           />
-          บาท/ตารางเมตร
+          บาท/ตร.ม.
         </div>
       </div>
     </div>
@@ -391,34 +460,39 @@
       Common Area
     </h2>
     <div class="ui-g-12 ui-md-12 ui-lg-12">
-      <div class="ui-g-12 ui-md-4 ui-lg-3" *ngFor="let item of common">
-        <div
-          class="product-item"
-          (click)="selectedItem('common', item.id)"
-          [ngClass]="{ active_box: selected.common === item.id }"
-        >
-          <div class="product-item-content">
-            <mat-icon class="icon-down">check_circle_outline</mat-icon>
-            <img
-              src="assets/images/door.jpg"
-              [alt]="item.name"
-              class="product-image"
-            />
-            <div class="text">
-              <span>{{ item.name }}</span>
+      <div
+        class="ui-g-12 ui-md-3 ui-lg-3"
+        style="text-align: center"
+        *ngFor="let item of common | keyvalue"
+      >
+        <span class="header-common-text">{{ setHeader(item.key) }}</span>
+        <ng-container *ngFor="let obj of item.value">
+          <div class="product-item-common" (click)="selectedItem('common',obj.id,item.key)"
+          [ngClass]="{ active_box: selected.common[item.key] === obj.id }"
+          >
+            <div class="product-item-common-content">
+              <mat-icon class="icon-down">check_circle_outline</mat-icon>
+              <img
+              src="{{ obj.image_url }}"
+                [alt]="nameObj(obj, item.key)"
+                class="product-image"
+              />
+              <div class="text">
+                <span>{{ nameObj(obj, item.key) }}</span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="input-img">
-          <input
-            size="16"
-            pKeyFilter="int"
-            type="text"
-            pInputText
-            matInputCommified
-            [(ngModel)]="item.price"
-          />
-        </div>
+          <div class="input-img">
+            <input
+              size="16"
+              pKeyFilter="int"
+              type="text"
+              pInputText
+              matInputCommified
+              [(ngModel)]="obj.default_price"
+            />
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>
@@ -429,7 +503,10 @@
     <div class="ui-g-12 ui-md-6 ui-lg-6 pd-l-5per">
       <div class="product-item active_box">
         <div class="product-item-content-noclick">
-          <img src="assets/images/electrical_supply_public_utility.jpg" class="product-image" />
+          <img
+            src="assets/images/electrical_supply_public_utility.jpg"
+            class="product-image"
+          />
           <div class="text">
             <span style="color: white">Electrical Supply</span>
           </div>
@@ -470,14 +547,18 @@
           </div>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12">
-          ราคาทั้งโครงการ : {{ allElectric | number }}
+          ราคาทั้งโครงการ :
+          <span class="total-price">{{ allElectric | number }}</span>
         </div>
       </div>
     </div>
     <div class="ui-g-12 ui-md-6 ui-lg-6 pd-r-5per">
       <div class="product-item active_box">
         <div class="product-item-content-noclick">
-          <img src="assets/images/water_supply_public_utility.jpg" class="product-image" />
+          <img
+            src="assets/images/water_supply_public_utility.jpg"
+            class="product-image"
+          />
           <div class="text">
             <span style="color: white">Water Supply</span>
           </div>
@@ -518,7 +599,8 @@
           </div>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12">
-          ราคาทั้งโครงการ : {{ allWater | number }}
+          ราคาทั้งโครงการ :
+          <span class="total-price">{{ allWater | number }}</span>
         </div>
       </div>
     </div>
@@ -550,14 +632,17 @@
       <div class="ui-g-12 ui-md-6 ui-lg-6 pd-l-5per">
         <div class="product-item active_box">
           <div class="product-item-content-noclick">
-            <img src="assets/images/architecture_house_common.jpg" class="product-image" />
+            <img
+              src="assets/images/architecture_house_common.jpg"
+              class="product-image"
+            />
             <div class="text">
               <span style="color: white">Architecture Fee - House</span>
             </div>
           </div>
         </div>
         <div class="ui-g-12 ui-md-12 ui-lg-12">
-          <div class="ui-g-12 ui-md-8 ui-lg-7">ค่าออกแบบรูปบ้าน</div>
+          <div class="ui-g-12 ui-md-8 ui-lg-7">ราคาออกแบบบ้าน แบบที่ 1</div>
           <div class="ui-g-12 ui-md-4 ui-lg-5">
             <input
               size="4"
@@ -565,11 +650,11 @@
               type="text"
               pInputText
               matInputCommified
-              [(ngModel)]="architecture.priceDesign"
+              [(ngModel)]="architecture.priceHouse1"
             />
             แบบ
           </div>
-          <div class="ui-g-12 ui-md-8 ui-lg-7">ราคาออกแบบ / แบบ</div>
+          <div class="ui-g-12 ui-md-8 ui-lg-7">ราคาออกแบบบ้าน แบบที่ 2</div>
           <div class="ui-g-12 ui-md-4 ui-lg-5">
             <input
               size="4"
@@ -577,11 +662,11 @@
               type="text"
               pInputText
               matInputCommified
-              [(ngModel)]="architecture.pricePerDesign"
+              [(ngModel)]="architecture.priceHouse2"
             />
             บาท
           </div>
-          <div class="ui-g-12 ui-md-8 ui-lg-7">ราคารวมแบบบ้าน</div>
+          <div class="ui-g-12 ui-md-8 ui-lg-7">ราคาออกแบบบ้าน แบบที่ 3</div>
           <div class="ui-g-12 ui-md-4 ui-lg-5">
             <input
               size="4"
@@ -589,11 +674,11 @@
               type="text"
               pInputText
               matInputCommified
-              [(ngModel)]="architecture.priceAllBuilding"
+              [(ngModel)]="architecture.priceHouse3"
             />
             บาท
           </div>
-          <div class="ui-g-12 ui-md-8 ui-lg-7">ราคาออกแบบผังโครงการ</div>
+          <div class="ui-g-12 ui-md-8 ui-lg-7">ราคาออกแบบบ้าน แบบที่ 4</div>
           <div class="ui-g-12 ui-md-4 ui-lg-5">
             <input
               size="4"
@@ -601,11 +686,11 @@
               type="text"
               pInputText
               matInputCommified
-              [(ngModel)]="architecture.priceStructure"
+              [(ngModel)]="architecture.priceHouse4"
             />
             บาท
           </div>
-          <div class="ui-g-12 ui-md-8 ui-lg-7">ราคางานระบบ</div>
+          <div class="ui-g-12 ui-md-8 ui-lg-7">ราคาออกแบบบ้าน แบบที่ 5</div>
           <div class="ui-g-12 ui-md-4 ui-lg-5">
             <input
               size="4"
@@ -613,19 +698,25 @@
               type="text"
               pInputText
               matInputCommified
-              [(ngModel)]="architecture.priceSystem"
+              [(ngModel)]="architecture.priceHouse5"
             />
             บาท
           </div>
           <div class="ui-g-12 ui-md-12 ui-lg-12">
-            ราคาทั้งโครงการ : {{ architecture.totalPrice | number }}
+            ราคาทั้งโครงการ :
+            <span class="total-price">{{
+              this.archTotalPrice() | number
+            }}</span>
           </div>
         </div>
       </div>
       <div class="ui-g-12 ui-md-6 ui-lg-6 pd-r-5per">
         <div class="product-item active_box">
           <div class="product-item-content-noclick">
-            <img src="assets/images/lanscape_design_common.jpg" class="product-image" />
+            <img
+              src="assets/images/lanscape_design_common.jpg"
+              class="product-image"
+            />
             <div class="text">
               <span style="color: white">Landscape Design Fee</span>
             </div>
@@ -651,7 +742,10 @@
       <div class="ui-g-12 ui-md-6 ui-lg-6 pd-l-5per">
         <div class="product-item active_box">
           <div class="product-item-content-noclick">
-            <img src="assets/images/house_permit_common.jpg" class="product-image" />
+            <img
+              src="assets/images/house_permit_common.jpg"
+              class="product-image"
+            />
             <div class="text">
               <span style="color: white">House Permit</span>
             </div>
@@ -684,15 +778,19 @@
           </div>
           <div class="ui-g-12 ui-md-8 ui-lg-7">ราคาทั้งโครงการ :</div>
           <div class="ui-g-12 ui-md-4 ui-lg-5">
-            <span>{{ housePermit.allPrice | number }}</span>
-            บาท
+            <span class="total-price">{{
+              +housePermit.pricePerBuilding * +housePermit.allBuilding | number
+            }}</span>
           </div>
         </div>
       </div>
       <div class="ui-g-12 ui-md-6 ui-lg-6 pd-r-5per">
         <div class="product-item active_box">
           <div class="product-item-content-noclick">
-            <img src="assets/images/subdivision_common.jpg" class="product-image" />
+            <img
+              src="assets/images/subdivision_common.jpg"
+              class="product-image"
+            />
             <div class="text">
               <span style="color: white">Subdivision Fee</span>
             </div>
@@ -726,8 +824,10 @@
             </div>
             <div class="ui-g-12 ui-md-8 ui-lg-7">ราคาทั้งโครงการ :</div>
             <div class="ui-g-12 ui-md-4 ui-lg-5">
-              <span>{{ subdivision.allPrice | number }}</span>
-              บาท
+              <span class="total-price">{{
+                +subdivision.allBuilding * +subdivision.pricePerBuilding
+                  | number
+              }}</span>
             </div>
           </div>
         </div>
@@ -736,7 +836,7 @@
   </div>
   <div class="ui-g-12 ui-md-12 ui-lg-12 left-side result">
     ยอดรวมทั้งโครงการ
-    <p>1,276,807,600<span>(บาท)</span></p>
+    <p>{{ totalProject(clickBox) | number }}<span>(บาท)</span></p>
   </div>
   <div class="ui-g-12">
     <button pButton type="button" class="button-click" (click)="save()">

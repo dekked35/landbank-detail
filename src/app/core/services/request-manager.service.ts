@@ -349,9 +349,10 @@ export class RequestManagerService {
     });
   }
 
-  updateArea(payload: any): Promise<any> {
+  updateArea(payload: any, id: any): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.basicTypeService.updateArea(payload).subscribe(
+      console.log(id)
+      this.basicTypeService.updateArea(payload, id).subscribe(
         (response) => {
           console.log('Get area successfully.', response);
           resolve(response);
@@ -371,6 +372,23 @@ export class RequestManagerService {
         (response) => {
           console.log('Get area successfully.', response);
           localStorage.setItem('info', JSON.stringify(response));
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+
+  getSpendingInfo(payload: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.getSpendingInfo(payload).subscribe(
+        (response) => {
+          console.log('Get houseType successfully.', response);
+          localStorage.setItem('houseType', JSON.stringify(response));
           resolve(response);
         },
         (err) => {
@@ -447,6 +465,210 @@ export class RequestManagerService {
           const local = JSON.parse(localStorage.getItem('info'));
           local.feasibility_common_setting = response;
           localStorage.setItem('info', JSON.stringify(local));
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+  requestMasterGate(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.requestMasterGate().subscribe(
+        (response) => {
+          console.log('get Master Gate successfully.', response);
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+  requestMasterFence(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.requestMasterFence().subscribe(
+        (response) => {
+          console.log('get Master Fence successfully.', response);
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+  insertHouseDetail(payload: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.insertHouseDetail(payload).subscribe(
+        (response) => {
+          console.log('insert House Detail successfully.', response);
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+  insertHouseDetailSaleInfo(payload: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.insertHouseDetailSaleInfo(payload).subscribe(
+        (response) => {
+          console.log('insert House Detail Sale successfully.', response);
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+  updateHouseDetailSaleInfo(payload: any, id: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.updateHouseDetailSaleInfo(payload, id).subscribe(
+        (response) => {
+          console.log('update House Detail Sale successfully.', response);
+          const houseType = JSON.parse(localStorage.getItem('houseType'));
+          const temp = houseType.find(i => i.id === payload.feasibility_house_detail);
+          const index = temp.feasibility_house_detail_sale_info.findIndex(x => x.id === id);
+          if (index > -1) {
+            temp.feasibility_house_detail_sale_info[index] = response;
+            houseType.map(i => i.id === temp.id ? temp : i);
+            localStorage.setItem('houseType', JSON.stringify(houseType));
+          }
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+  requestMasterSecurity(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.requestMasterSecurity().subscribe(
+        (response) => {
+          console.log('get Master Security successfully.', response);
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+  requestMasterSaleOffice(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.requestMasterSaleOffice().subscribe(
+        (response) => {
+          console.log('get Master Sale Office successfully.', response);
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+  requestMasterClubHouse(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.requestMasterClubHouse().subscribe(
+        (response) => {
+          console.log('get Master Clubhouse successfully.', response);
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+  requestMasterFitness(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.requestMasterFitness().subscribe(
+        (response) => {
+          console.log('get Master Fitness successfully.', response);
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+  requestMasterSwimmingPool(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.requestMasterSwimmingPool().subscribe(
+        (response) => {
+          console.log('get Master Swimming Pool successfully.', response);
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+  updateHouseDetail(payload: any, id: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.updateHouseDetail(payload, id).subscribe(
+        (response) => {
+          console.log('update House Detail successfully.', response);
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+  requestFullCommon(id: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.requestFullCommon(id).subscribe(
+        (response) => {
+          console.log('request Full common info successfully.', response);
+          resolve(response);
+        },
+        (err) => {
+          console.log(err);
+          reject();
+          // TODO : show error dialog
+        }
+      );
+    });
+  }
+
+  requestAllFeasibilities(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.basicTypeService.requestAllFeasibilities().subscribe(
+        (response) => {
+          console.log('request All Feas successfully.', response);
           resolve(response);
         },
         (err) => {

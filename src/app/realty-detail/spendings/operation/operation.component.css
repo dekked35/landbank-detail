@@ -333,6 +333,15 @@ input {
   height: 40px;
   font-size: 40px;
   width: 40px;
+  cursor: pointer;
+}
+
+.click-delete {
+  height: 20px;
+  font-size: 20px;
+  color: red;
+  width: 20px;
+  cursor: pointer;
 }
 
 .next-button {
@@ -352,4 +361,8 @@ input {
   color: gray;
   font-size: 16px;
   margin-left: 5%;
+}
+
+.text-input-box .ui-inputtext{
+  width: 80%;
 }

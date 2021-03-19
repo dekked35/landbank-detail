@@ -1,3 +1,4 @@
+import { SchemaManagerService } from './../../../core/services/schema-manager.service';
 import { RequestManagerService } from './../../../core/services/request-manager.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -21,7 +22,7 @@ const imageType = {
 export class OperationComponent implements OnInit {
   @Output() toggleEdit = new EventEmitter<any>();
   responsiveOptions;
-  localStorage: any;
+  currentInfo: any;
   selected = { gate: [], fence: [], common: [] };
   house = [
     { name: 'Operation' },
@@ -29,17 +30,17 @@ export class OperationComponent implements OnInit {
     { name: 'สาธารณูปโภค/เดือน' },
   ];
   expense = [
-    { name: 'พนักงานขาย', amount: '20', price: '10000' },
-    { name: 'วิศวกรคุมโครงการ', amount: '20', price: '10000' },
-    { name: 'Foreman', amount: '10', price: '10000' },
-    { name: 'รปภ.', amount: '10', price: '10000' },
-    { name: 'แม่บ้าน', amount: '30', price: '10000' },
-    { name: 'บัญชี', amount: '5', price: '10000' },
+    { name: 'พนักงานขาย', amount: '20', price: '10000', showBox : false },
+    { name: 'วิศวกรคุมโครงการ', amount: '20', price: '10000', showBox : false },
+    { name: 'Foreman', amount: '10', price: '10000', showBox : false },
+    { name: 'รปภ.', amount: '10', price: '10000', showBox : false },
+    { name: 'แม่บ้าน', amount: '30', price: '10000', showBox : false },
+    { name: 'บัญชี', amount: '5', price: '10000', showBox : false },
   ];
   software = [{ name: 'Miscellaneous', price: '10000' }];
   marketing = [
-    { name: 'marketing_expense', allSale: '1000000', price: '100000' },
-    { name: 'cmr_ce', allSale: '1000000', price: '100000' },
+    { name: 'marketing_expense', allSale: '100000', price: '30000' },
+    { name: 'cmr_ce', allSale: '100000', price: '7000' },
   ];
 
   month = 12;
@@ -57,21 +58,18 @@ export class OperationComponent implements OnInit {
 
   constructor(
     private store: Store<any>,
-    private requestManagerService: RequestManagerService
+    private requestManagerService: RequestManagerService,
+    private shemaManagerService: SchemaManagerService
   ) {
     this.store.select(fromCore.getPage).subscribe((page) => {
       this.currentProperty = page.page;
     });
-    this.localStorage = JSON.parse(localStorage.getItem('info'));
-    if (this.localStorage.feasibility_operation_setting) {
-      this.updateItem();
-    }
-    // if (this.localStorage.feasibility_common_setting) {
-    //   this.updateItem("common");
-    // }
-    // if (this.localStorage.feasibility_house_detail) {
-    //   this.updateItem("house");
-    // }
+    this.store.select(fromCore.getInfo).subscribe((info) => {
+      if (info) {
+        this.currentInfo = info.info;
+        this.updateItem();
+      }
+    });
   }
 
   ngOnInit() {
@@ -119,8 +117,7 @@ export class OperationComponent implements OnInit {
   }
 
   async save() {
-    const value = JSON.parse(localStorage.getItem('info'))
-      .feasibility_operation_setting;
+    const value = this.currentInfo.feasibility_operation_setting;
     const payload = {
       feasibility: localStorage.getItem('id'),
       op_salesman_number: +this.expense[0].amount,
@@ -145,23 +142,23 @@ export class OperationComponent implements OnInit {
       op_miscellaneous: +this.software[0].price,
       op_miscellaneous_total: +this.software[0].price,
       op_month_number: +this.month,
-      op_expense_per_month: this.costTotal(),
-      op_expense_total: this.costTotalPerMonth(),
+      op_expense_per_month: this.costTotal('Operation'),
+      op_expense_total: this.costTotalPerMonth('Operation'),
       mk_expense_project_total_price: +this.marketing[0].allSale,
       mk_expense_cost: +this.marketing[0].price,
       mk_crm_ce_project_total_price: +this.marketing[1].allSale,
       mk_crm_ce_cost: +this.marketing[1].price,
       mk_marketing_per_month: +this.marketingPerMonth,
       mk_marketing_month_number: +this.month,
-      mk_marketing_cost_per_month: this.costTotal(),
-      mk_marketing_total_cost: this.costTotalPerMonth(),
+      mk_marketing_cost_per_month: this.costTotal('Marketing'),
+      mk_marketing_total_cost: this.costTotalPerMonth('Marketing'),
       ut_month_number: +this.month,
       ut_electrical_price: +this.electricPrice,
       ut_electrical_total_price: +this.electricPrice * this.month,
       ut_water_price: +this.waterPrice,
       ut_water_total_price: +this.waterPrice * this.month,
-      ut_expense_per_month: this.costTotal(),
-      ut_expense_total_cost: this.costTotalPerMonth(),
+      ut_expense_per_month: this.costTotal('สาธารณูปโภค/เดือน'),
+      ut_expense_total_cost: this.costTotalPerMonth('สาธารณูปโภค/เดือน'),
     };
     if (value === null) {
       await this.requestManagerService.insertOperation(payload);
@@ -169,65 +166,76 @@ export class OperationComponent implements OnInit {
       const id = value.id;
       this.requestManagerService.updateOperation(payload, id);
     }
-    this.toggleEdit.emit({ page: "evaluate", order: 0 });
+    this.toggleEdit.emit({ page: 'evaluate', order: 0 });
   }
 
-  costTotal() {
+  costTotal(clickBox: string) {
     let sum = 0;
-    this.expense.forEach((i) => {
-      sum += +i.amount * +i.price;
-    });
-    this.marketing.forEach((i) => {
-      sum += +i.price;
-    });
-    sum += +this.software[0].price;
-    sum += +this.marketingPerMonth;
-    sum += +this.electricPrice + +this.waterPrice;
+    switch (clickBox) {
+      case 'Operation':
+        this.expense.forEach((i) => {
+          sum += +i.amount * +i.price;
+        });
+        sum += +this.software[0].price;
+        break;
+      case 'Marketing':
+        this.marketing.forEach((i) => {
+          sum += +i.price;
+        });
+        sum += +this.marketingPerMonth;
+        break;
+      case 'สาธารณูปโภค/เดือน':
+        sum += +this.electricPrice + +this.waterPrice;
+        break;
+    }
     return sum;
   }
 
-  costTotalPerMonth() {
-    let sum = this.costTotal();
-    sum = sum * 12;
-    this.marketing.forEach((i) => {
-      sum += +i.allSale;
-    });
+  costTotalPerMonth(clickBox: string) {
+    let sum = this.costTotal(clickBox);
+    sum = sum * this.month;
     return sum;
   }
 
   updateItem() {
-    const data = this.localStorage.feasibility_operation_setting;
+    const data = this.currentInfo.feasibility_operation_setting;
     if (data) {
       this.expense = [
         {
           name: 'พนักงานขาย',
           amount: data.op_salesman_number,
           price: data.op_salesman_salary,
+          showBox: false,
         },
         {
           name: 'วิศวกรคุมโครงการ',
           amount: data.op_engineer_number,
           price: data.op_engineer_salary,
+          showBox: false,
         },
         {
           name: 'Foreman',
           amount: data.op_foreman_number,
           price: data.op_foreman_salary,
+          showBox: false,
         },
         {
           name: 'รปภ.',
           amount: data.op_security_number,
           price: data.op_security_salary,
+          showBox: false,
         },
         {
           name: 'แม่บ้าน',
           amount: data.op_housekeeper_number,
           price: data.op_housekeeper_salary,
+          showBox: false,
         },
         {
           name: 'บัญชี',
           amount: data.op_account_number,
           price: data.op_account_salary,
+          showBox: false,
         },
       ];
       this.software = [{ name: 'Miscellaneous', price: data.op_miscellaneous }];
@@ -247,7 +255,29 @@ export class OperationComponent implements OnInit {
       this.electricPrice = data.ut_electrical_price;
       this.waterPrice = data.ut_water_price;
       this.month = data.ut_month_number;
+    } else {
+      const temp = this.shemaManagerService.getCommonArea().spendings.operation;
+      if(Object.keys(temp).length > 0) {
+        Object.keys(temp).forEach(element => {
+          this[element] = temp[element];
+        });
+      }
     }
+  }
+
+  op_mk_changeValue(name: string) {
+    const value = +this.marketing.find((i) => i.name === name).allSale;
+    this.marketing.find((i) => i.name === name).price = name === 'marketing_expense' ? value * 3 / 100 + '' : value * 0.7 / 100 + '';
+  }
+
+  addMoreExpense() {
+    this.expense.push(
+      { name: '', amount: '1', price: '1', showBox: true }
+    );
+  }
+
+  deleteExpense(index :number) {
+    this.expense.splice(index,1);
   }
 
   getUrl(name: string) {

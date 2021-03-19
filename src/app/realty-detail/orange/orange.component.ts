@@ -738,7 +738,6 @@ export class OrangeComponent implements OnInit {
       newProductData.competitor.rooms = userRooms;
       newProductData.user.resort = userResort;
       newProductData.competitor.resort = userResort;
-      console.log('is in')
       this.store.dispatch(new productAction.SuccessAction(newProductData));
       // this.reloadData(true);
     }

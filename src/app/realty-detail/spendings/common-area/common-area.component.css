@@ -59,10 +59,16 @@
   cursor: pointer;
   border: 0;
   opacity: 0.3;
+  background-position: center;
 }
 
 .active {
   opacity: 1;
+}
+
+.mini .ui-inputtext {
+  width: 50%;
+  margin-left: 10px;
 }
 
 .ui-inputtext {
@@ -114,6 +120,7 @@ input {
 }
 
 .product-item,
+.product-item-common,
 .product-item-fence {
   opacity: 0.3;
 }
@@ -137,13 +144,24 @@ input {
   overflow: hidden;
 }
 
+.product-item-common .product-item-common-content{
+  border: 1px solid #085d84;
+  border-radius: 12px;
+  margin: 5px;
+  display: inline-block;
+  width: 170px;
+  background: #085d84;
+  overflow: hidden;
+}
+
 .product-item .product-image,
-.product-item-fence .product-image {
+.product-item-fence .product-image,
+.product-item-common .product-image {
   width: inherit;
+  height: 14vh;
 }
 
 .icon-down {
-  left: 145px;
   color: white;
   top: 5px;
   position: absolute;
@@ -200,7 +218,8 @@ input {
 
 .product-item-content,
 .product-item-content-noclick,
-.product-item-fence {
+.product-item-fence,
+.product-item-common {
   position: relative;
 }
 
@@ -294,4 +313,18 @@ input {
   font-size: 18px;
   color: orange;
   margin: 0 10px;
+}
+
+.fence-style{
+  float: right;
+}
+
+.fence-style > .ui-inputtext{
+  width: 25%;
+  margin-right: 10px;
+  margin-left: 20px;
+}
+
+.header-common-text{
+font-size: 10px;
 }
